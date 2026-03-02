@@ -7,45 +7,10 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
-
-        /* .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-        } */
-/* 
-        .modal-content {
-            background-color: var(--white);
-            width: 90%;
-            max-width: 650px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            animation: slideUp 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        } */
-
         @keyframes slideUp {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-
-        /* .close-modal {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 28px;
-            cursor: pointer;
-        } */
 
         .herosection {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
@@ -88,10 +53,10 @@
 <header>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid container-lg">
-            <a class="navbar-brand text-success fw-bold ">Faith<span class="text-danger"> Delight</span></a>
-            <form class="d-flex" role="search">
-            <input class="form-control border border-1 border-success me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" onkeyup="searchFood(event)"/>
-            <button class="btn btn-outline-danger" type="submit" onclick="">Search</button>
+            <a class="navbar-brand text-success fw-bold ">Faith<span class="text-danger"> Delight Dishes</span></a>
+            <form class="d-flex" role="search" onsubmit="event.preventDefault()">
+            <input class="form-control border border-1 border-success me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput"/>
+            <button class="btn btn-outline-danger" type="button">Search</button>
             </form>
         </div>
     </nav>
@@ -99,7 +64,7 @@
 <main class="container-fluid pt-5">
     <section class="container-lg  herosection text-center bg-">
         <h1 class="fw-bold text-uppercase text-danger fs-1 pt-4">Explore Different sort of Dishes</h1>
-        <p class="text-success">Discover the rich flavors of World cuisine</p>
+        <p class="text-success">Discover the rich flavors of African cuisine</p>
     </section>
     <section class="container-lg mt-5">
         <div class="filters-box d-md-flex align-items-center justify-content-center gap-3 flex-wrap">
@@ -108,20 +73,20 @@
                     Category    
                 </button>
                 <ul class="dropdown-menu rounded-1">
-                    <li><a class="dropdown-item" href="#">All Categories</a></li>
-                    <li><a class="dropdown-item" href="#">Rice Dishes</a></li>
-                    <li><a class="dropdown-item" href="#">Soups</a></li>
-                    <li><a class="dropdown-item" href="#">Swallows</a></li>
-                    <li><a class="dropdown-item" href="#">Snacks/Street Food</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('All Categories')">All Categories</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Rice Dishes')">Rice Dishes</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Soups')">Soups</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Swallows')">Swallows</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Snacks/Street Food')">Snacks/Street Food</a></li>
                 </ul>
             </div>
 
             <select name="region" id="Region" class="py-md-2 py-1 my-2 px-4 rounded-pill border border-1 border-success text-success col-12 col-md-auto">
-                <option value="All_Region">All Regions</option>
-                <option value="South-South">South-South Nigeria</option>
-                <option value="southWest">South-West Nigeria</option>
-                <option value="northern">Northern Nigeria</option>
-                <option value="southEast">South-East Nigeria</option>
+                <option value="All regions">All Regions</option>
+                <option value="South-South Nigeria">South-South Nigeria</option>
+                <option value="South-West Nigeria">South-West Nigeria</option>
+                <option value="Northern Nigeria">Northern Nigeria</option>
+                <option value="South-East Nigeria">South-East Nigeria</option>
             </select>
 
             <div class="form-check my-2">
@@ -159,13 +124,13 @@
     const searchInput = document.getElementById('searchInput');
     let allFoods = []
     let filteredFoods = [];
+    let selectedCategory = 'All Categories';
     const foodContainer = document.getElementById('show')
     
 
     const Apiurl = "https://mongotest2026.vercel.app/api/foods";
     const FoodFetching = async() => {
             const result = fetch(Apiurl)
-            // console.log(result)
             const awaitingResult = await result
             console.log(awaitingResult)
             show.innerHTML = ''
@@ -178,54 +143,20 @@
             </div>
             `
             
-            
-            
-            
             const convertedresult = await awaitingResult.json()
             console.log(convertedresult.data)
-             show.innerHTML = '<div class="row g-4"></div>'
-             const rowContainer = show.querySelector('.row')
+            show.innerHTML = '<div class="row g-4"></div>'
              
-            convertedresult.data.map((food) => {
+            convertedresult.data.forEach((food) => {
                 allFoods.push(food)
-           
-            rowContainer.innerHTML += 
-            `
-              <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="${food.image || 'https://via.placeholder.com/300x200?text=' + food.name}" 
-                     class="card-img-top" 
-                     alt="${food.name}" 
-                     style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title text-danger">${food.name}</h5>
-                    <p class="card-text text-muted small">${food.category || 'N/A'}</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
-                        ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
-                        ${food.region ? '<span class="badge bg-info">' + food.region + '</span>' : ''}
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-0">
-                    <button class="btn btn-outline-success w-100" onclick="showFoodDetails(${food.id})">
-                        Details
-                    </button>
-                </div>
-            </div>
-        </div> 
-            `
+                console.log('Food region:', food.region, 'Category:', food.category)
             })
 
-            
-
+            displayFoods(allFoods)
+            filterAll()
         }
         
         FoodFetching()
-    const searchFood = async (e) => {
-        const searchInput = e.target.value;
-        const searchResult = foodlist.filter((prd) => prd.name.toLowerCase().includes(searchInput.toLowerCase()))
-        console.log(searchResult)
-    }
 
     showFoodDetails = (id) => { 
         const food = allFoods.find(f => f.id === id);
@@ -280,13 +211,106 @@
         modal.style.display = 'none';
     }
 
-    // Close modal when clicking outside
     document.getElementById('Modal-Food').addEventListener('click', (e) => {
         if (e.target.id === 'Modal-Food') {
             closeModal();
         }
     })
-        // if (e.key === 'Enter') {
-            // const search = searchInput.value.trim();
+
+    function displayFoods(foodsToDisplay) {
+        const rowContainer = show.querySelector('.row');
+        
+        if (foodsToDisplay.length === 0) {
+            rowContainer.innerHTML = '<div class="col-12 text-center"><p class="text-muted fs-5 mt-4">No foods found matching your filters</p></div>';
+            return;
+        }
+        
+        rowContainer.innerHTML = '';
+        foodsToDisplay.forEach(food => {
+            rowContainer.innerHTML += `
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="${food.image || 'https://via.placeholder.com/300x200?text=' + food.name}" 
+                             class="card-img-top" 
+                             alt="${food.name}" 
+                             style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">${food.name}</h5>
+                            <p class="card-text text-muted small">${food.category || 'N/A'}</p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
+                                ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
+                                ${food.region ? '<span class="badge bg-info">' + food.region + '</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <button class="btn btn-outline-success w-100" onclick="showFoodDetails(${food.id})">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function applyFilters() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const region = document.getElementById('Region').value;
+        const isVegetarian = document.getElementById('vegetarian').checked;
+        const isSpicy = document.getElementById('spicy').checked;
+        const category = selectedCategory;
+        
+        console.log('Filters applied:', {searchTerm, region, isVegetarian, isSpicy, category});
+        
+        let filtered = allFoods;
+        
+        if (searchTerm) {
+            filtered = filtered.filter(food => 
+                food.name.toLowerCase().includes(searchTerm)
+            );
+        }
+        
+        if (region && region !== 'All regions') {
+            filtered = filtered.filter(food => 
+                food.region && food.region.toLowerCase().includes(region.toLowerCase())
+            );
+        } 
+        
+        if (isVegetarian) {
+            filtered = filtered.filter(food => 
+                food.vegetarian === true || food.vegetarian === 'true' || food.vegetarian === 'Yes'
+            );
+        }
+        
+        if (isSpicy) {
+            filtered = filtered.filter(food => 
+                food.spicy === true || food.spicy === 'true' || food.spicy === 'Yes'
+            );
+        }
+        
+        if (category && category !== 'All Categories') {
+            filtered = filtered.filter(food => 
+                food.category && food.category.toLowerCase().includes(category.toLowerCase())
+            );
+        }
+        
+        console.log('Filtered results:', filtered.length, 'foods')
+        displayFoods(filtered);
+    }
+
+    function filterByCategory(category) {
+        selectedCategory = category;
+        applyFilters();
+    }
+
+    function filterAll() {
+        document.getElementById('searchInput').addEventListener('keyup', applyFilters);
+        document.getElementById('Region').addEventListener('change', applyFilters);
+        document.getElementById('vegetarian').addEventListener('change', applyFilters);
+        document.getElementById('spicy').addEventListener('change', applyFilters);
+    }
+
+
 </script>
 </html>
