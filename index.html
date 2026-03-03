@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faith Delight - Food Website</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="pajamas--food.svg" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
         @keyframes slideUp {
@@ -53,11 +53,12 @@
 <header>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid container-lg">
-            <a class="navbar-brand text-success fw-bold ">Faith<span class="text-danger"> Delight Dishes</span></a>
+            <a class="navbar-brand text-success fw-bold "><img src="pajamas--food (1).svg"   class="">Faith<span class="text-danger"> Delight Dishes</span></a>
             <form class="d-flex" role="search" onsubmit="event.preventDefault()">
-            <input class="form-control border border-1 border-success me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput"/>
-            <button class="btn btn-outline-danger" type="button">Search</button>
+            <input class="form-control border border-1 border-success me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" onkeyup="searchFood(event)"/>
+            <!-- <button class="btn btn-outline-danger" type="button">Search</button> -->
             </form>
+            <button></button>
         </div>
     </nav>
 </header>
@@ -68,20 +69,15 @@
     </section>
     <section class="container-lg mt-5">
         <div class="filters-box d-md-flex align-items-center justify-content-center gap-3 flex-wrap">
-            <div class="dropdown my-2">
-                <button class="btn border border-1 border-danger dropdown-toggle text-danger px-4 mt-2 my-md-0 col-12 col-md-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Category    
-                </button>
-                <ul class="dropdown-menu rounded-1">
-                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('All Categories')">All Categories</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Rice Dishes')">Rice Dishes</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Soups')">Soups</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Swallows')">Swallows</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterByCategory('Snacks/Street Food')">Snacks/Street Food</a></li>
-                </ul>
-            </div>
+            <select name="category" id="Category" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-danger text-danger col-12 col-md-auto" onchange="fliterCategories()">
+                <option value="All Categories">All Categories</option>
+                <option value="main">Main Dishes</option>
+                <option value="Soups">Soups</option>
+                <option value="Swallows">Swallows</option>
+                <option value="Snacks/Street Food">Snacks/Street Food</option>
+            </select>
 
-            <select name="region" id="Region" class="py-md-2 py-1 my-2 px-4 rounded-pill border border-1 border-success text-success col-12 col-md-auto">
+            <select name="region" id="Region" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-success text-success col-12 col-md-auto" onchange="fliterRegion()">
                 <option value="All regions">All Regions</option>
                 <option value="South-South Nigeria">South-South Nigeria</option>
                 <option value="South-West Nigeria">South-West Nigeria</option>
@@ -90,30 +86,35 @@
             </select>
 
             <div class="form-check my-2">
-                <input class="form-check-input" type="checkbox" name="vegetarian" id="vegetarian">
+               <input class="form-check-input" type="checkbox" name="vegetarian" id="vegetarian" onchange="filterVegetarian()">
+
                 <label class="form-check-label" for="vegetarian">Vegetarian</label>
             </div>
 
             <div class="form-check my-2">
-                <input class="form-check-input" type="checkbox" name="spicy" id="spicy">
+                <input class="form-check-input" type="checkbox" name="spicy" id="spicy" onchange="filterSpicy()">
                 <label class="form-check-label" for="spicy">Spicy</label>
             </div>
+
+            <!-- <button class="btn btn-success" onclick="fliterFood()">Filter</button> -->
         </div>
     </section>
 
     <section class="container-lg mt-5" id="show">
-        <div class="row g-4 justify-content-center">
+        <div class="row g-4 justify-content-center" id="row">
             <div class="col-12 text-center">
                 <div class="spinner-border text-success">
-                    __________<span class="text-danger spinner-border">||||</span>
+                    <!-- __________<span class="text-danger ">||||</span> -->
                 </div><br>
                 <span class="text-warning">please wait... while we load the food</span>
             </div>
+
+            
         </div>
     </section>
 
-    <div class="modal position-fixed top-0 start-0 w-100 h-100" id="Modal-Food" style="display: none; background-color: rgba(0,0,0,0.6); z-index: 1050; overflow-y: auto;">
-        <div class="modal-content bg-white rounded-4 shadow-lg mx-auto my-5 position-relative" style="max-width: 900px; width: 90%; animation: slideUp 0.3s ease;">
+    <div class="modal position-fixed top-0 start-0 w-100 " id="Modal-Food" style="display: none; background-color: rgba(0,0,0,0.6); z-index: 1050; overflow-y: auto; max-height: 80vh; height: 80vh; backdrop-filter: blur(1);" >
+        <div class="modal-content bg-white rounded-4 shadow-lg mx-auto my-5 position-relative w-100" style="max-width: 90h; width: 90%; animation: slideUp 0.3s ease;">
         </div>
     </div>
         
@@ -124,15 +125,46 @@
     const searchInput = document.getElementById('searchInput');
     let allFoods = []
     let filteredFoods = [];
-    let selectedCategory = 'All Categories';
     const foodContainer = document.getElementById('show')
+    
+    const foodPic = [
+        'jollof.jpg',
+        'egusi.jpg',
+        'pounded yam.jpg',
+        'suya.jpg',
+        'akara.jpg',
+        'moi moi.jpg',
+        'efo riro.jpg',
+        'fried rice.jpg',
+        'pepper soup.jpg',
+        'amala.jpg',
+        'boli.jpg',
+        'ofada rice.jpg',
+        'Edikang Ikong.jpg',
+        'Tuwo Shinkafa.jpg',
+        'Puff Puff.jpg',
+        'Oha Soup.jpg',
+        'Chin Chin.jpg',
+        'Afang Soup.jpg',
+        'Nkwobi.jpg',
+        'Ewa Agoyin.jpg',
+        'Gizdodo.jpg',
+        'Okro.jpg',
+        'Banga.jpg',
+        'Masa.jpg',
+        'abacha (african salad).jpg',
+        'Ofe Nsala (White Soup).jpg',
+        'Dodo (Fried Plantain).jpg',
+        'miyan kuka.jpg',
+        'Asaro.jpg',
+        'Yamarita.jpg'
+    ]
     
 
     const Apiurl = "https://mongotest2026.vercel.app/api/foods";
     const FoodFetching = async() => {
-            const result = fetch(Apiurl)
-            const awaitingResult = await result
-            console.log(awaitingResult)
+            const result = await fetch(Apiurl)
+            console.log(result)
             show.innerHTML = ''
             show.innerHTML = 
             ` <div class="text-center w-100">
@@ -143,18 +175,64 @@
             </div>
             `
             
-            const convertedresult = await awaitingResult.json()
+            const convertedresult = await result.json()
             console.log(convertedresult.data)
-            show.innerHTML = '<div class="row g-4"></div>'
+            show.innerHTML = '<div class="row g-4" id="row"></div>'
              
             convertedresult.data.forEach((food) => {
                 allFoods.push(food)
-                console.log('Food region:', food.region, 'Category:', food.category)
+                console.log('Food region:', food.region, 'Category:', food.category, 'price:', food.price)
             })
 
             displayFoods(allFoods)
-            filterAll()
         }
+
+    function displayFoods(foodsToDisplay) {
+        const rowContainer = document.getElementById('row');
+        
+        if (foodsToDisplay.length === 0) {
+            rowContainer.innerHTML = 
+            ' <div class="col-12 text-center"> <p class="text-muted fs-5 mt-4">No foods found matching your filters</p></div>';
+            return;
+        }
+        
+        rowContainer.innerHTML = '';
+        foodsToDisplay.forEach(food => {
+            const imgIndex = food.id - 1;
+            const localImage = foodPic[imgIndex] ? foodPic[imgIndex] : 'https://via.placeholder.com/300x200?text=' + food.name;
+            
+            rowContainer.innerHTML += `
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="${localImage}" 
+                             class="card-img-top" 
+                             alt="${food.name}" 
+                             style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">${food.name}</h5>
+                            <p class="card-text text-muted small">${food.category || 'N/A'}</p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
+                                ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
+                                ${food.region ? '<span class="badge bg-info">' + food.region + '</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="row card-footer bg-transparent border-0">
+                            <button class="btn btn-outline-success col-8 w-100" onclick="showFoodDetails(${food.id})">
+                                Details
+                            </button>
+                            <button class="btn btn-outline-danger col-4 w-100" id="favorite" onclick="addFavorite(${food.id})">
+                                <img src="material-symbols-light--favorite-outline.svg" class="img-fluid" style="width: 20px; height: 20px;" alt="Favorite Icon">
+                            </button>
+                                
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
         
         FoodFetching()
 
@@ -162,21 +240,29 @@
         const food = allFoods.find(f => f.id === id);
         if (!food) return;
         
+        const imgIndex = food.id - 1;
+        const localImage = foodPic[imgIndex] ? foodPic[imgIndex] : 'https://via.placeholder.com/400?text=' + food.name;
+        
         const modal = document.getElementById('Modal-Food');
         const modalContent = modal.querySelector('.modal-content');
 
         modalContent.innerHTML = `
-            <div class="position-relative p-4">
+            <div class="position-relative p-4 overflow-y-scroll">
                 <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal()"></button>
                 
-                <div class="row">
+                <div class="row h-100">
                     <div class="col-md-6">
-                        <img src="${food.image || 'https://via.placeholder.com/400?text=' + food.name}" 
+                        <img src="${localImage}" 
                              class="img-fluid rounded shadow" 
                              alt="${food.name}">
+                             <br><br>
+
+                             <h2 class="text-danger fw-bold mb-3">${food.name}</h2>
+
+                             <p class="mb-3">${food.description || 'Delicious traditional dish'}</p>
                     </div>
-                    <div class="col-md-6">
-                        <h2 class="text-danger fw-bold mb-3">${food.name}</h2>
+                    <div class="col-md-6 p-3" >
+                        
                         <p class="text-muted"><strong>Category:</strong> ${food.category || 'N/A'}</p>
                         <p class="text-muted"><strong>Region:</strong> ${food.region || 'N/A'}</p>
                         
@@ -185,7 +271,7 @@
                             ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
                         </div>
                         
-                        <p class="mb-3">${food.description || 'Delicious traditional dish'}</p>
+                        
                         
                         ${food.ingredients ? `
                             <h5 class="text-success mt-3">Ingredients:</h5>
@@ -197,7 +283,16 @@
                         ${food.preparation ? `
                             <h5 class="text-success mt-3">Preparation:</h5>
                             <p>${food.preparation}</p>
+
                         ` : ''}
+
+                        <h5 class="text-success mt-3">Difficuty: <span class="text-danger fw-bold">${food.difficulty || 'N/A'}</span></h5>
+
+                        <h5 class="text-success mt-2">Calories: <span class="text-danger fw-bold">${food.calories ? food.calories : 'N/A'}</span></h5>
+
+                        Food price: <span class="text-danger fw-bold">${food.price ? '$' + food.price : 'N/A'}</span>
+
+
                     </div>
                 </div>
             </div>
@@ -217,98 +312,93 @@
         }
     })
 
-    function displayFoods(foodsToDisplay) {
-        const rowContainer = show.querySelector('.row');
+        const searchFood = (e) => {
+            const searchInput = e.target.value;
+            const searchResult = allFoods.filter((foodies) => foodies.name.toLowerCase().includes(searchInput.toLowerCase()))
+            console.log(searchResult)
+
+            const rowContainer = document.getElementById('row');
+            displayFoods(searchResult);
+        }
+    const fliterCategories = () => {
+            const categoryFilter = document.getElementById('Category').value;
+
+            if (categoryFilter === 'All Categories') {
+                displayFoods(allFoods);
+            } else if(categoryFilter === 'main') {
+                const riceDishes = allFoods.filter(food => food.category === 'Main Course'|| food.category === 'Rice Dish');
+                displayFoods(riceDishes);
+            } else if(categoryFilter === 'Soups') {
+                const soups = allFoods.filter(food => food.category === 'Soup');
+                displayFoods(soups);
+            } else if(categoryFilter === 'Swallows') {
+                const swallows = allFoods.filter(food => food.category === 'Swallow');
+                displayFoods(swallows);
+            } else if(categoryFilter === 'Snacks/Street Food') {
+                const snacks = allFoods.filter(food => food.category === 'Snack/Breakfast' || food.category === 'Side Dish/Snack');
+                displayFoods(snacks);
+            }
+        }
+
+        const fliterRegion = () => {
+
+            const regionFilter = document.getElementById('Region').value;
+
+            if(regionFilter === 'All regions') {
+                displayFoods(allFoods);
+            } else if (regionFilter === 'South-South Nigeria') {
+                const southSouth = allFoods.filter(food => food.region === 'South-South Nigeria');
+                displayFoods(southSouth);
+            } else if (regionFilter === 'South-West Nigeria') {
+                const southWest = allFoods.filter(food => food.region === 'South-West Nigeria');
+                displayFoods(southWest);
+            } else if (regionFilter === 'Northern Nigeria') {
+                const north = allFoods.filter(food => food.region === 'Northern Nigeria');
+                displayFoods(north);
+            } else if (regionFilter === 'South-East Nigeria') {
+                const southEast = allFoods.filter(food => food.region === 'South-East Nigeria');
+                displayFoods(southEast);
+            }
+
+
+        }
+            
+    
+
+    const filterVegetarian = () => {
+                const vegetarianCheckbox = document.getElementById('vegetarian').checked;
+                if(vegetarianCheckbox) {
+                    const vegetarianFoods = allFoods.filter(food => food.isVegetarian === true);
+                    displayFoods(vegetarianFoods);
+                } else {
+                    displayFoods(allFoods);
+                }
+            }
+
+            const filterSpicy = () => {
+                const spicyCheckbox = document.getElementById('spicy').checked;
+                if(spicyCheckbox) {
+                    const spicyFoods = allFoods.filter(food => food.isSpicy === true);
+                    displayFoods(spicyFoods);
+                } else {
+                    displayFoods(allFoods);
+                }
+            }
+            
+    addFavorite = (id) => {
+        const food = allFoods.find(f => f.id === id);
+        if (!food) return;
+
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         
-        if (foodsToDisplay.length === 0) {
-            rowContainer.innerHTML = '<div class="col-12 text-center"><p class="text-muted fs-5 mt-4">No foods found matching your filters</p></div>';
+        if (favorites.some(fav => fav.id === food.id)) {
+            alert('This food is already in your favorites!');
             return;
         }
-        
-        rowContainer.innerHTML = '';
-        foodsToDisplay.forEach(food => {
-            rowContainer.innerHTML += `
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <img src="${food.image || 'https://via.placeholder.com/300x200?text=' + food.name}" 
-                             class="card-img-top" 
-                             alt="${food.name}" 
-                             style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title text-danger">${food.name}</h5>
-                            <p class="card-text text-muted small">${food.category || 'N/A'}</p>
-                            <div class="d-flex gap-2 flex-wrap">
-                                ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
-                                ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
-                                ${food.region ? '<span class="badge bg-info">' + food.region + '</span>' : ''}
-                            </div>
-                        </div>
-                        <div class="card-footer bg-transparent border-0">
-                            <button class="btn btn-outline-success w-100" onclick="showFoodDetails(${food.id})">
-                                Details
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-    }
 
-    function applyFilters() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const region = document.getElementById('Region').value;
-        const isVegetarian = document.getElementById('vegetarian').checked;
-        const isSpicy = document.getElementById('spicy').checked;
-        const category = selectedCategory;
-        
-        console.log('Filters applied:', {searchTerm, region, isVegetarian, isSpicy, category});
-        
-        let filtered = allFoods;
-        
-        if (searchTerm) {
-            filtered = filtered.filter(food => 
-                food.name.toLowerCase().includes(searchTerm)
-            );
-        }
-        
-        if (region && region !== 'All regions') {
-            filtered = filtered.filter(food => 
-                food.region && food.region.toLowerCase().includes(region.toLowerCase())
-            );
-        } 
-        
-        if (isVegetarian) {
-            filtered = filtered.filter(food => 
-                food.vegetarian === true || food.vegetarian === 'true' || food.vegetarian === 'Yes'
-            );
-        }
-        
-        if (isSpicy) {
-            filtered = filtered.filter(food => 
-                food.spicy === true || food.spicy === 'true' || food.spicy === 'Yes'
-            );
-        }
-        
-        if (category && category !== 'All Categories') {
-            filtered = filtered.filter(food => 
-                food.category && food.category.toLowerCase().includes(category.toLowerCase())
-            );
-        }
-        
-        console.log('Filtered results:', filtered.length, 'foods')
-        displayFoods(filtered);
-    }
-
-    function filterByCategory(category) {
-        selectedCategory = category;
-        applyFilters();
-    }
-
-    function filterAll() {
-        document.getElementById('searchInput').addEventListener('keyup', applyFilters);
-        document.getElementById('Region').addEventListener('change', applyFilters);
-        document.getElementById('vegetarian').addEventListener('change', applyFilters);
-        document.getElementById('spicy').addEventListener('change', applyFilters);
+        favorites.push(food);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert(`${food.name} has been added to your favorites!`);
     }
 
 
