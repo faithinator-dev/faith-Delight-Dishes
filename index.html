@@ -53,13 +53,14 @@
 <header>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid container-lg">
-            <a class="navbar-brand text-success fw-bold "><img src="pajamas--food (1).svg"   class="">Faith<span class="text-danger"> Delight Dishes</span></a>
+            <a class="navbar-brand text-success fw-bold "><img src="pajamas--food (1).svg"   class="" style="width: 20px;">Faith<span class="text-danger"> Delight Dishes</span></a>
             <form class="d-flex" role="search" onsubmit="event.preventDefault()">
-            <input class="form-control border border-1 border-success me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" onkeyup="searchFood(event)"/>
+            
             <!-- <button class="btn btn-outline-danger" type="button">Search</button> -->
             </form>
-            <button></button>
+            <button class="btn ms-auto btn-danger mt-2 mt-md-0 mt-lg-0 ms-3" onclick="viewFavourite()" >Favourite</button>
         </div>
+        
     </nav>
 </header>
 <main class="container-fluid pt-5">
@@ -69,6 +70,9 @@
     </section>
     <section class="container-lg mt-5">
         <div class="filters-box d-md-flex align-items-center justify-content-center gap-3 flex-wrap">
+            
+            <div class="mx-auto"><input class="form-control border border-1 border-success ms-auto" type="search" placeholder="Search" aria-label="Search" id="searchInput" onkeyup="searchFood(event)"/></div><br>
+
             <select name="category" id="Category" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-danger text-danger col-12 col-md-auto" onchange="fliterCategories()">
                 <option value="All Categories">All Categories</option>
                 <option value="main">Main Dishes</option>
@@ -401,6 +405,13 @@
         alert(`${food.name} has been added to your favorites!`);
     }
 
-
+    const viewFavourite = () => {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (favorites.length === 0) {
+            alert('You have no favorite foods yet!');
+            return;
+        }
+        displayFoods(favorites);
+    }
 </script>
 </html>
