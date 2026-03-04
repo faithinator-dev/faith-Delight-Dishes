@@ -214,13 +214,15 @@ body{
         <!-- categories -->
         <div class="col-md-3">
             <select class="form-select" id="filterCategory">
-                <option value="All">All Categories</option>
-                <option value="Main Course">Main Course</option>
-                <option value="Soup">Soup</option>
-                <option value="Snack">Snack</option>
-                <option value="Swallow">Swallow</option>
-                <option value="Breakfast">Breakfast</option>
-                <option value="Appetizer">Appetizer</option>
+                <option value="All Categories">All Categories</option>
+                <option value="main">Main Dishes</option>
+                <option value="Soups">Soups</option>
+                <option value="Swallows">Swallows</option>
+                <option value="Snacks/Street Food">Snacks/Street Food</option>
+                <option value="snack/ dessert">snack/ dessert</option>
+                <option value="Breakfast/snack">Breakfast/snack</option>
+                <option value="appetizer/side dish">Appetizer/side dish</option>
+                <option value="Side Snack">Side Dish/Main</option>
             </select>
         </div>
 
@@ -519,8 +521,24 @@ function applyFilters(){
     let filtered = allFoods.filter(food => {
 
         // CATEGORY CHECK
-        if(category !== "All" && food.category !== category){
-            return false;
+        if(category !== "All Categories"){
+            if(category === 'main'){
+                if(food.category !== 'Main Course') return false;
+            } else if(category === 'Soups'){
+                if(food.category !== 'Soup') return false;
+            } else if(category === 'Swallows'){
+                if(food.category !== 'Swallow') return false;
+            } else if(category === 'Snacks/Street Food'){
+                if(food.category !== 'Snack/Breakfast' && food.category !== 'Side Dish/Snack') return false;
+            } else if(category === 'snack/ dessert'){
+                if(food.category !== 'Snack/Dessert') return false;
+            } else if(category === 'Breakfast/snack'){
+                if(food.category !== 'Breakfast/Snack') return false;
+            } else if(category === 'appetizer/side dish'){
+                if(food.category !== 'Appetizer/Side Dish') return false;
+            } else if(category === 'Side Snack'){
+                if(food.category !== 'Side Dish/Main') return false;
+            }
         }
 
         // REGION CHECK
