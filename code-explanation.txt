@@ -1,0 +1,355 @@
+===============================================
+FAITH DELIGHT FOOD WEBSITE - CODE EXPLANATION
+===============================================
+
+========================================
+1. HTML STRUCTURE
+========================================
+
+HEAD SECTION:
+- Sets up the page with UTF-8 encoding and responsive viewport
+- Links Bootstrap CSS framework for styling and responsive design
+- Custom CSS animations and styling for hero section, filters, and modal
+
+NAVBAR:
+- Brand logo and name "Faith Delight Dishes"
+- Search functionality (currently commented out in form)
+- "Favourite" button to view saved favorite foods
+
+HERO SECTION:
+- Full-width banner with background image from Unsplash
+- Gradient overlay for better text visibility
+- Title: "Explore Different sort of Dishes"
+- Subtitle about African cuisine
+
+FILTERS SECTION:
+- Search input box for searching food by name
+- Category dropdown: All Categories, Main Dishes, Soups, Swallows, Snacks/Street Food
+- Region dropdown: All Regions, South-South, South-West, Northern, South-East Nigeria
+- Vegetarian checkbox filter
+- Spicy checkbox filter
+
+MAIN DISPLAY SECTION (#show):
+- Container for food cards
+- Shows loading spinner initially
+- Uses Bootstrap grid system (row + columns)
+
+MODAL:
+- Hidden by default (display: none)
+- Shows detailed food information when "Details" button clicked
+- Full-screen overlay with backdrop
+- Can be closed by clicking X button or clicking outside
+
+========================================
+2. JAVASCRIPT VARIABLES
+========================================
+
+allFoods = []
+- Stores all food items fetched from the API
+- Used as the source for all filtering operations
+
+filteredFoods = []
+- Reserved for storing filtered results (currently unused)
+
+foodPic = [array of image filenames]
+- Maps local image files to food IDs
+- Index 0 = ID 1, Index 1 = ID 2, etc.
+- 29 local food images stored in the project folder
+
+Apiurl = "https://mongotest2026.vercel.app/api/foods"
+- API endpoint to fetch food data
+
+========================================
+3. FETCHING FOOD DATA
+========================================
+
+FoodFetching() Function:
+1. Makes API call to fetch food data
+2. Shows loading spinner while waiting
+3. Converts response to JSON
+4. Loops through each food item and adds to allFoods array
+5. Logs food details (region, category, price) to console
+6. Calls displayFoods() to show all foods on the page
+
+The function runs automatically when page loads
+
+========================================
+4. DISPLAYING FOOD CARDS
+========================================
+
+displayFoods(foodsToDisplay) Function:
+Takes an array of food objects and displays them as cards
+
+Process:
+1. Gets the row container by ID
+2. If no foods to display, shows "No foods found" message
+3. Clears the row container
+4. Loops through each food item
+5. Gets local image using food.id - 1 as index in foodPic array
+6. Creates HTML card with:
+   - Food image (local or placeholder)
+   - Food name (red title)
+   - Category badge
+   - Vegetarian badge (if applicable)
+   - Spicy badge (if applicable)
+   - Region badge
+   - "Details" button
+   - Heart icon button for favorites
+
+Bootstrap Grid Classes Used:
+- col-12: Full width on mobile
+- col-sm-6: 2 columns on small screens
+- col-md-4: 3 columns on medium screens
+- col-lg-3: 4 columns on large screens
+
+========================================
+5. SEARCH FUNCTIONALITY
+========================================
+
+searchFood(e) Function:
+- Triggered when user types in search input (onkeyup event)
+- Gets the search input value
+- Filters allFoods array by checking if food name includes search term
+- Comparison is case-insensitive (converts both to lowercase)
+- Displays filtered results immediately
+
+How it works:
+User types "rice" → searchFood runs → filters allFoods → shows only foods with "rice" in name
+
+========================================
+6. CATEGORY FILTER
+========================================
+
+fliterCategories() Function:
+- Triggered when Category dropdown changes (onchange event)
+- Gets selected category value
+- Uses if/else statements to filter foods
+
+Categories mapped:
+- "All Categories" → Shows all foods
+- "main" → Filters for 'Main Course' or 'Rice Dish' category
+- "Soups" → Filters for 'Soup' category
+- "Swallows" → Filters for 'Swallow' category
+- "Snacks/Street Food" → Filters for 'Snack/Breakfast' or 'Side Dish/Snack'
+
+Note: Uses exact match (===) to compare category values
+The API returns specific category names that may differ from dropdown labels
+
+========================================
+7. REGION FILTER
+========================================
+
+fliterRegion() Function:
+- Triggered when Region dropdown changes (onchange event)
+- Gets selected region value
+- Uses if/else statements to filter foods
+
+Regions available:
+- "All regions" → Shows all foods
+- "South-South Nigeria"
+- "South-West Nigeria"
+- "Northern Nigeria"
+- "South-East Nigeria"
+
+Note: Uses exact match (===) to compare region values
+
+========================================
+8. VEGETARIAN FILTER
+========================================
+
+filterVegetarian() Function:
+- Triggered when vegetarian checkbox changes (onchange event)
+- Checks if checkbox is checked or unchecked
+- If checked: Filters allFoods for items where isVegetarian === true
+- If unchecked: Shows all foods again
+
+Property checked: food.isVegetarian
+
+========================================
+9. SPICY FILTER
+========================================
+
+filterSpicy() Function:
+- Triggered when spicy checkbox changes (onchange event)
+- Checks if checkbox is checked or unchecked
+- If checked: Filters allFoods for items where isSpicy === true
+- If unchecked: Shows all foods again
+
+Property checked: food.isSpicy
+
+========================================
+10. MODAL (FOOD DETAILS)
+========================================
+
+showFoodDetails(id) Function:
+- Triggered when "Details" button clicked
+- Finds the food in allFoods array by matching ID
+- Gets local image using food.id - 1 as index
+- Creates detailed modal content with:
+  * Food image
+  * Food name (heading)
+  * Description
+  * Category
+  * Region
+  * Vegetarian/Spicy badges
+  * Ingredients list (if available)
+  * Preparation instructions (if available)
+  * Difficulty level
+  * Calories
+  * Price
+- Displays modal by setting display to 'flex'
+
+closeModal() Function:
+- Hides modal by setting display to 'none'
+- Can be triggered by clicking X button or clicking outside modal
+
+Modal Click Outside Handler:
+- Listens for clicks on modal backdrop
+- Closes modal if clicked outside the modal content
+
+========================================
+11. FAVORITES SYSTEM
+========================================
+
+addFavorite(id) Function:
+- Finds food by ID in allFoods array
+- Gets existing favorites from localStorage (or empty array)
+- Checks if food already in favorites
+  * If yes: Shows alert "already in favorites"
+  * If no: Adds food to favorites array
+- Saves updated favorites to localStorage
+- Shows success alert with food name
+
+localStorage:
+- Browser storage that persists data even after page refresh
+- Stores favorites as JSON string
+- Data remains until manually cleared
+
+viewFavourite() Function:
+- Gets favorites from localStorage
+- If no favorites: Shows alert "no favorite foods yet"
+- If favorites exist: Displays them using displayFoods()
+
+This allows users to:
+- Save favorite foods
+- View only their favorites
+- Data persists across sessions
+
+========================================
+12. HOW EVERYTHING WORKS TOGETHER
+========================================
+
+PAGE LOAD SEQUENCE:
+1. HTML loads with Bootstrap framework
+2. FoodFetching() runs automatically
+3. API call fetches all food data
+4. allFoods array gets populated
+5. displayFoods() shows all foods on page
+
+USER INTERACTIONS:
+- Type in search → searchFood() filters by name
+- Select category → fliterCategories() filters by category
+- Select region → fliterRegion() filters by region
+- Check vegetarian → filterVegetarian() filters vegetarian foods
+- Check spicy → filterSpicy() filters spicy foods
+- Click "Details" → showFoodDetails() opens modal with full info
+- Click heart icon → addFavorite() saves to favorites
+- Click "Favourite" button → viewFavourite() shows saved favorites
+
+========================================
+13. KEY JAVASCRIPT CONCEPTS USED
+========================================
+
+ARRAY METHODS:
+- .filter() - Creates new array with items that pass a test
+- .find() - Returns first item that matches condition
+- .forEach() - Loops through each item in array
+- .map() - Transforms each item in array
+- .push() - Adds item to end of array
+- .some() - Checks if any item passes a test
+
+ASYNC/AWAIT:
+- async function - Allows use of await keyword
+- await - Waits for promise to resolve before continuing
+- Used for API calls and JSON parsing
+
+DOM MANIPULATION:
+- document.getElementById() - Gets element by ID
+- element.innerHTML - Sets or gets HTML content
+- element.value - Gets input/select value
+- element.checked - Gets checkbox state
+- element.style.display - Shows/hides elements
+
+LOCAL STORAGE:
+- localStorage.getItem() - Retrieves data
+- localStorage.setItem() - Saves data
+- JSON.parse() - Converts JSON string to object
+- JSON.stringify() - Converts object to JSON string
+
+TEMPLATE LITERALS:
+- Backticks ` ` for multi-line strings
+- ${} for embedding variables
+- Used for creating HTML dynamically
+
+ARROW FUNCTIONS:
+- Shorter function syntax: () => {}
+- Used for callbacks and simple functions
+
+========================================
+14. BOOTSTRAP CLASSES USED
+========================================
+
+LAYOUT:
+- container-fluid - Full width container
+- container-lg - Large responsive container
+- row - Creates flex row for grid
+- col-* - Column sizing (12 column grid)
+- g-4 - Gap spacing between grid items
+
+COMPONENTS:
+- card - Card component
+- card-body - Card content area
+- card-footer - Card bottom section
+- badge - Small colored labels
+- btn - Button styling
+- modal - Modal/dialog component
+- navbar - Navigation bar
+- form-check - Checkbox styling
+
+UTILITIES:
+- d-flex - Flexbox display
+- justify-content-center - Center content
+- align-items-center - Align items vertically
+- gap-* - Space between flex items
+- text-danger/success/muted - Text colors
+- fw-bold - Font weight bold
+- shadow-sm - Small shadow
+- rounded-* - Border radius
+
+========================================
+15. CURRENT LIMITATIONS & NOTES
+========================================
+
+FILTER BEHAVIOR:
+- Each filter works independently
+- When one filter is applied, it replaces the previous filter
+- Filters don't combine (e.g., can't search + filter by region simultaneously)
+- Unchecking checkbox shows all foods, not previous filtered state
+
+SOLUTION: To make filters work together, you need to:
+1. Get all filter values at once
+2. Apply all filters to allFoods in sequence
+3. Call one function from all filter events
+
+IMAGE MAPPING:
+- Relies on food.id matching foodPic array index
+- If API IDs change or skip numbers, images won't match correctly
+
+API DEPENDENCY:
+- Page requires internet connection to fetch data
+- If API is down, no foods will display
+- No offline fallback
+
+========================================
+END OF EXPLANATION
+========================================

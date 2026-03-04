@@ -79,6 +79,11 @@
                 <option value="Soups">Soups</option>
                 <option value="Swallows">Swallows</option>
                 <option value="Snacks/Street Food">Snacks/Street Food</option>
+                <option value="snack/ dessert">snack/ dessert</option>
+                <option value="Breakfast/snack">Breakfast/snack</option>
+                <option value="appetizer/side dish">Appetizer/side dish</option>
+                <option value="Side Snack">Side Dish/Main</option>
+
             </select>
 
             <select name="region" id="Region" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-success text-success col-12 col-md-auto" onchange="fliterRegion()">
@@ -330,7 +335,7 @@
             if (categoryFilter === 'All Categories') {
                 displayFoods(allFoods);
             } else if(categoryFilter === 'main') {
-                const riceDishes = allFoods.filter(food => food.category === 'Main Course'|| food.category === 'Rice Dish');
+                const riceDishes = allFoods.filter(food => food.category === 'Main Course');
                 displayFoods(riceDishes);
             } else if(categoryFilter === 'Soups') {
                 const soups = allFoods.filter(food => food.category === 'Soup');
@@ -341,6 +346,17 @@
             } else if(categoryFilter === 'Snacks/Street Food') {
                 const snacks = allFoods.filter(food => food.category === 'Snack/Breakfast' || food.category === 'Side Dish/Snack');
                 displayFoods(snacks);
+            }   else if(categoryFilter === 'snack/ dessert') {
+                const snackDessert = allFoods.filter(food => food.category === 'Snack/Dessert');
+                displayFoods(snackDessert);
+            } else if(categoryFilter === 'Breakfast/snack') {
+                const breakfastSnack = allFoods.filter(food => food.category === 'Breakfast/Snack');
+                displayFoods(breakfastSnack);
+            } else if(categoryFilter === 'appetizer/side dish') {
+                const appetizerSide = allFoods.filter(food => food.category === 'Appetizer/Side Dish');
+                displayFoods(appetizerSide);
+            } else if(categoryFilter === 'Side Snack'){
+                const sideSnack = allFoods.filter(food => food.category === "Side Dish/Main")
             }
         }
 
