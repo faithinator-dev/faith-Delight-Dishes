@@ -549,13 +549,11 @@ function applyFilters(){
         }
 
         // VEGETARIAN CHECK
-        if(vegetarian && !food.vegetarian){
         if(vegetarian && !food.isVegetarian){
             return false;
         }
 
         // SPICY CHECK
-        if(spicy && !food.spicy){
         if(spicy && !food.isSpicy){
             return false;
         }
