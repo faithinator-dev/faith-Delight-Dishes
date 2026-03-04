@@ -442,6 +442,8 @@ function showDetails(id){
                 <p><strong>Calories:</strong> ${food.calories || 'N/A'}</p>
                 <p><strong>Vegetarian:</strong> ${food.vegetarian ? 'Yes' : 'No'}</p>
                 <p><strong>Spicy:</strong> ${food.spicy ? 'Yes' : 'No'}</p>
+                <p><strong>Vegetarian:</strong> ${food.isVegetarian ? 'Yes' : 'No'}</p>
+                <p><strong>Spicy:</strong> ${food.isSpicy ? 'Yes' : 'No'}</p>
 
                 <hr>
 
@@ -548,11 +550,13 @@ function applyFilters(){
 
         // VEGETARIAN CHECK
         if(vegetarian && !food.vegetarian){
+        if(vegetarian && !food.isVegetarian){
             return false;
         }
 
         // SPICY CHECK
         if(spicy && !food.spicy){
+        if(spicy && !food.isSpicy){
             return false;
         }
 
