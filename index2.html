@@ -1,220 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="pajamas--food.svg">
-<title>Faith Delight Dishes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faith Delight - Food Website</title>
+    <link rel="shortcut icon" href="pajamas--food.svg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-<style>
-
-body{
-    background:#2b2626;
-    font-family:'Segoe UI',sans-serif;
-}
-
-/* NAV */
-.navbar{
-    background:transparent !important;
-}
-.navbar-brand{
-    color:white !important;
-    font-weight:700;
-    font-size:1.3rem;
-}
-
-/* TITLE */
-.section-title{
-    color:white;
-    font-weight:700;
-    margin-bottom:30px;
-}
-
-/* FILTER BOX */
-.filters-box{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* CARD */
-.food-card{
-    background:white;
-    border-radius:22px;
-    padding:15px;
-    text-align:center;
-    transition:0.3s ease;
-    height:100%;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-}
-.food-card:hover{
-    transform:translateY(-8px);
-}
-
-/* IMAGE */
-.food-img-box{
-    background:#f3f3f3;
-    border-radius:18px;
-    padding:10px;
-}
-.food-img-box img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:15px;
-}
-
-/* BUTTONS */
-.details-btn{
-    background:#8B5E3C;
-    color:white;
-    border:none;
-    padding:6px 15px;
-    border-radius:25px;
-    font-size:0.85rem;
-}
-.details-btn:hover{
-    opacity:0.9;
-}
-
-.heart-btn{
-    background:none;
-    border:none;
-    font-size:1.2rem;
-    color:#999;
-}
-.heart-btn.active{
-    color:red;
-}
-
-/* MODAL CUSTOM */
-.custom-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:1000;
-}
-
-.modal-content-box{
-    background:white;
-    border-radius:20px;
-    max-width:800px;
-    width:100%;
-    padding:30px;
-    max-height:90vh;
-    overflow-y:auto;
-    animation:fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
-}
-
-.section-wrapper{
-    padding-top:50px;
-    padding-bottom:50px;
-}
-
-.carousel-item {
-    height: 450px;
-    position: relative;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* DARK OVERLAY */
-.carousel-item::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.7),
-        rgba(0,0,0,0.4)
-    );
-    z-index: 1;
-}
-
-/* CAPTION ABOVE OVERLAY */
-.carousel-caption {
-    z-index: 2;
-    bottom: 20%;
-    text-align: left;
-}
-
-.carousel-item {
-    height: 400px;
-    position: relative;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-caption h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-}
-
-.carousel-caption p {
-    max-width: 500px;
-}
-
-.carousel-item img {
-    transition: transform 6s ease;
-}
-
-.carousel-item.active img {
-    transform: scale(1.05);
-}
-
-</style>
+        .herosection {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80') center/cover no-repeat;
+            min-height: 200px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 40px 20px;
+        }
+        .herosection h1 {
+            color: #fff !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .herosection p {
+            color: #f0f0f0 !important;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .filters-box {
+            background: white;
+            border: 2px solid #dc3545;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        .filters-box label {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar container py-2 px-2">
-    <span class="navbar-brand">Faith Delight Dishes</span>
-
-    <button class="btn btn-outline-light" onclick="showFavorites()">
-    <i class="fa-solid fa-heart"></i> Favourites
-    </button>
-</nav>
-
-
-
-
-<div class="container section-wrapper">
-
-    <div class="filters-box mb-5">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <input type="search" class="form-control" placeholder="Search dishes..." id="searchInput">
-            </div>
+<header>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid container-lg">
+            <a class="navbar-brand text-success fw-bold "><img src="pajamas--food (1).svg"   class="" style="width: 20px;">Faith<span class="text-danger"> Delight Dishes</span></a>
+            <form class="d-flex" role="search" onsubmit="event.preventDefault()">
+            
+            <!-- <button class="btn btn-outline-danger" type="button">Search</button> -->
+            </form>
+            <button class="btn ms-auto btn-danger mt-2 mt-md-0 mt-lg-0 ms-3" onclick="viewFavourite()" >Favourite</button>
         </div>
-    </div>
+        
+    </nav>
+</header>
+<main class="container-fluid pt-5">
+    <section class="container-lg  herosection text-center bg-">
+        <h1 class="fw-bold text-uppercase text-danger fs-1 pt-4">Explore Different sort of Dishes</h1>
+        <p class="text-success">Discover the rich flavors of African cuisine</p>
+    </section>
+    <section class="container-lg mt-5">
+        <div class="filters-box d-md-flex align-items-center justify-content-center gap-3 flex-wrap">
+            
+            <div class="mx-auto"><input class="form-control border border-1 border-success ms-auto" type="search" placeholder="Search" aria-label="Search" id="searchInput" onkeyup="searchFood(event)"/></div><br>
 
-    
-<div class="filters-box mb-5">
-    <div class="row g-3">
-
-        <!-- categories -->
-        <div class="col-md-3">
-            <select class="form-select" id="filterCategory">
+            <select name="category" id="Category" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-danger text-danger col-12 col-md-auto" onchange="fliterCategories()">
                 <option value="All Categories">All Categories</option>
                 <option value="main">Main Dishes</option>
                 <option value="Soups">Soups</option>
@@ -224,406 +83,351 @@ body{
                 <option value="Breakfast/snack">Breakfast/snack</option>
                 <option value="appetizer/side dish">Appetizer/side dish</option>
                 <option value="Side Snack">Side Dish/Main</option>
-            </select>
-        </div>
 
-        <!-- REGION -->
-        <div class="col-md-3">
-            <select class="form-select" id="filterRegion">
-                <option value="All">All Regions</option>
-                <option value="South-West Nigeria">South-West Nigeria</option>
-                <option value="South-East Nigeria">South-East Nigeria</option>
-                <option value="Northern Nigeria">Northern Nigeria</option>
+            </select>
+
+            <select name="region" id="Region" class="py-md-2 py-1 my-2 px-4 rounded-1 border border-1 border-success text-success col-12 col-md-auto" onchange="fliterRegion()">
+                <option value="All regions">All Regions</option>
                 <option value="South-South Nigeria">South-South Nigeria</option>
+                <option value="South-West Nigeria">South-West Nigeria</option>
+                <option value="Northern Nigeria">Northern Nigeria</option>
+                <option value="South-East Nigeria">South-East Nigeria</option>
             </select>
-        </div>
 
-        <!-- VEGETARIAN -->
-        <div class="col-md-2 d-flex align-items-center">
-            <input type="checkbox" id="filterVegetarian" class="me-2">
-            <label for="filterVegetarian">Vegetarian</label>
-        </div>
+            <div class="form-check my-2">
+               <input class="form-check-input" type="checkbox" name="vegetarian" id="vegetarian" onchange="filterVegetarian()">
 
-        <!-- SPICY -->
-        <div class="col-md-2 d-flex align-items-center">
-            <input type="checkbox" id="filterSpicy" class="me-2">
-            <label for="filterSpicy">Spicy</label>
-        </div>
+                <label class="form-check-label" for="vegetarian">Vegetarian</label>
+            </div>
 
+            <div class="form-check my-2">
+                <input class="form-check-input" type="checkbox" name="spicy" id="spicy" onchange="filterSpicy()">
+                <label class="form-check-label" for="spicy">Spicy</label>
+            </div>
+
+            <!-- <button class="btn btn-success" onclick="fliterFood()">Filter</button> -->
+        </div>
+    </section>
+
+    <section class="container-lg mt-5" id="show">
+        <div class="row g-4 justify-content-center" id="row">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-success">
+                    <!-- __________<span class="text-danger ">||||</span> -->
+                </div><br>
+                <span class="text-warning">please wait... while we load the food</span>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <div class="modal position-fixed top-0 start-0 w-100 " id="Modal-Food" style="display: none; background-color: rgba(0,0,0,0.6); z-index: 1050; overflow-y: auto; max-height: 80vh; height: 80vh; backdrop-filter: blur(1);" >
+        <div class="modal-content bg-white rounded-4 shadow-lg mx-auto my-5 position-relative w-100" style="max-width: 90h; width: 90%; animation: slideUp 0.3s ease;">
+        </div>
     </div>
-</div>
-
-<div id="foodCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-
-    <div class="carousel-inner" id="carouselInner">
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-
-</div>
-
-    <h3 class="section-title">Popular Dishes</h3>
-
-    <div class="row g-4" id="row"></div>
-
-</div>
-
-<div class="container section-wrapper d-none" id="favoriteSection">
-    <h3 class="section-title">Your Favourite Dishes</h3>
-    <div class="row g-4" id="favoriteRow"></div>
-</div>
-
-<!-- MODAL -->
-<div class="custom-modal" id="foodModal">
-    <div class="modal-content-box" id="modalContent"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-
-document.getElementById("filterCategory").addEventListener("change", applyFilters);
-document.getElementById("filterRegion").addEventListener("change", applyFilters);
-document.getElementById("filterVegetarian").addEventListener("change", applyFilters);
-document.getElementById("filterSpicy").addEventListener("change", applyFilters);
-
-const Apiurl = "https://mongotest2026.vercel.app/api/foods";
-let allFoods = [];
-
-async function fetchFoods(){
-    const row = document.getElementById('row');
-    // 1. Show Loading Spinner
-    row.innerHTML = '<div class="col-12 text-center text-white mt-5"><div class="spinner-border text-light" role="status"></div><p class="mt-2">Loading delicious foods...</p></div>';
-
-    try {
-        const res = await fetch(Apiurl);
-        if (!res.ok) throw new Error("API Response was not ok");
         
-        const data = await res.json();
-        allFoods = data.data;
-        displayFoods(allFoods);
-        loadHeroCarousel();
-    } catch (error) {
-        console.error("Error fetching foods:", error);
-        // 2. Show Error Message & Retry Button
-        row.innerHTML = `
-            <div class="col-12 text-center text-white mt-5">
-                <i class="fa-solid fa-triangle-exclamation fa-3x mb-3 text-warning"></i>
-                <h3>Oops! Could not load foods.</h3>
-                <p class="text-white-50">The server might be down or you have a network issue.</p>
-                <button class="btn btn-outline-light mt-2" onclick="fetchFoods()">Try Again</button>
-            </div>
-        `;
-    }
-}
+</main>    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    let allFoods = []
+    let filteredFoods = [];
+    const foodContainer = document.getElementById('show')
+    
+    const foodPic = [
+        'jollof.jpg',
+        'egusi.jpg',
+        'pounded yam.jpg',
+        'suya.jpg',
+        'akara.jpg',
+        'moi moi.jpg',
+        'efo riro.jpg',
+        'fried rice.jpg',
+        'pepper soup.jpg',
+        'amala.jpg',
+        'boli.jpg',
+        'ofada rice.jpg',
+        'Edikang Ikong.jpg',
+        'Tuwo Shinkafa.jpg',
+        'Puff Puff.jpg',
+        'Oha Soup.jpg',
+        'Chin Chin.jpg',
+        'Afang Soup.jpg',
+        'Nkwobi.jpg',
+        'Ewa Agoyin.jpg',
+        'Gizdodo.jpg',
+        'Okro.jpg',
+        'Banga.jpg',
+        'Masa.jpg',
+        'abacha (african salad).jpg',
+        'Ofe Nsala (White Soup).jpg',
+        'Dodo (Fried Plantain).jpg',
+        'miyan kuka.jpg',
+        'Asaro.jpg',
+        'Yamarita.jpg'
+    ]
+    
 
-const foodPic = [
- 'jollof.jpg',
- 'egusi.jpg',
- 'pounded yam.jpg',
- 'suya.jpg',
- 'akara.jpg',
- 'moi moi.jpg',
- 'efo riro.jpg',
- 'fried rice.jpg',
- 'pepper soup.jpg',
- 'amala.jpg',
- 'boli.jpg',
- 'ofada rice.jpg',
- 'Edikang Ikong.jpg',
- 'Tuwo Shinkafa.jpg',
- 'Puff Puff.jpg',
- 'Oha Soup.jpg',
- 'Chin Chin.jpg',
- 'Afang Soup.jpg',
- 'Nkwobi.jpg',
- 'Ewa Agoyin.jpg',
- 'Gizdodo.jpg',
- 'Okro.jpg',
- 'Banga.jpg',
- 'Masa.jpg',
- 'abacha (african salad).jpg',
- 'Ofe Nsala (White Soup).jpg',
- 'Dodo (Fried Plantain).jpg',
- 'miyan kuka.jpg',
- 'Asaro.jpg',
- 'Yamarita.jpg'
-];
-
-function getFoodImage(food){
-
-    // use food.id to match image index
-    const index = food.id - 1;
-
-    // if image exists in array
-    if(foodPic[index]){
-        return foodPic[index];
-    }
-
-    // fallback image
-    return "https://via.placeholder.com/400x300?text=" + food.name;
-}
-
-function displayFoods(foods){
-    const row = document.getElementById('row');
-    row.innerHTML = '';
-
-    foods.forEach(food => {
-
-        row.innerHTML += `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="food-card">
-
-                <div class="food-img-box">
-                    <img src="${getFoodImage(food)}" alt="${food.name}">
+    const Apiurl = "https://mongotest2026.vercel.app/api/foods";
+    const FoodFetching = async() => {
+            const result = await fetch(Apiurl)
+            console.log(result)
+            show.innerHTML = ''
+            show.innerHTML = 
+            ` <div class="text-center w-100">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
-
-                <h5 class="mt-3 fw-bold">${food.name}</h5>
-
-                <div class="d-flex justify-content-between align-items-center mt-3">
-
-                    <button class="details-btn" onclick="showDetails(${food.id})">
-                        Show Details
-                    </button>
-
-                    <button class="heart-btn" onclick="addFavorite(${food.id}, this)">
-                        <i class="fa-regular fa-heart"></i>
-                    </button>
-
-                </div>
-
+                <p class="text-warning mt-3">Please wait... loading delicious foods</p>
             </div>
-        </div>
-        `;
-    });
-}
+            `
+            
+            const convertedresult = await result.json()
+            console.log(convertedresult.data)
+            show.innerHTML = '<div class="row g-4" id="row"></div>'
+             
+            convertedresult.data.forEach((food) => {
+                allFoods.push(food)
+                console.log('Food region:', food.region, 'Category:', food.category, 'price:', food.price)
+            })
 
-function loadHeroCarousel(){
-
-    const carouselContainer = document.getElementById("carouselInner");
-
-    // Shuffle foods randomly
-    const shuffled = [...allFoods].sort(() => 0.5 - Math.random());
-
-    // Pick first 3 random foods
-    const randomFoods = shuffled.slice(0,3);
-
-    carouselContainer.innerHTML = "";
-
-    randomFoods.forEach((food, index) => {
-
-        carouselContainer.innerHTML += `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="${getFoodImage(food)}" alt="${food.name}">
-
-            <div class="carousel-caption text-start">
-                <h2 class="fw-bold">${food.name}</h2>
-                <p>${food.description || 'Delicious traditional dish'}</p>
-                <button class="btn btn-light btn-sm mt-2" 
-                        onclick="showDetails(${food.id})">
-                        View Details
-                </button>
-            </div>
-        </div>
-        `;
-    });
-
-}
-
-function showDetails(id){
-    const food = allFoods.find(f => f.id === id);
-    const modal = document.getElementById('foodModal');
-    const content = document.getElementById('modalContent');
-
-    content.innerHTML = `
-        <div class="text-end">
-            <button class="btn-close" onclick="closeModal()"></button>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <img src="${getFoodImage(food)}" class="img-fluid rounded mb-3">
-            </div>
-            <div class="col-md-6">
-
-                <h2 class="fw-bold mb-3">${food.name}</h2>
-
-                <p><strong>ID:</strong> ${food.id}</p>
-                <p><strong>Category:</strong> ${food.category || 'N/A'}</p>
-                <p><strong>Region:</strong> ${food.region || 'N/A'}</p>
-                <p><strong>Price:</strong> ₦${food.price || 'N/A'}</p>
-                <p><strong>Difficulty:</strong> ${food.difficulty || 'N/A'}</p>
-                <p><strong>Calories:</strong> ${food.calories || 'N/A'}</p>
-                <p><strong>Vegetarian:</strong> ${food.vegetarian ? 'Yes' : 'No'}</p>
-                <p><strong>Spicy:</strong> ${food.spicy ? 'Yes' : 'No'}</p>
-                <p><strong>Vegetarian:</strong> ${food.isVegetarian ? 'Yes' : 'No'}</p>
-                <p><strong>Spicy:</strong> ${food.isSpicy ? 'Yes' : 'No'}</p>
-
-                <hr>
-
-                <p><strong>Description:</strong></p>
-                <p>${food.description || 'No description available.'}</p>
-
-                ${food.ingredients ? `
-                <p><strong>Ingredients:</strong></p>
-                <ul>
-                    ${food.ingredients.map(i => `<li>${i}</li>`).join('')}
-                </ul>` : ''}
-
-                ${food.preparation ? `
-                <p><strong>Preparation:</strong></p>
-                <p>${food.preparation}</p>` : ''}
-
-            </div>
-        </div>
-    `;
-
-    modal.style.display = 'flex';
-}
-
-function closeModal(){
-    document.getElementById('foodModal').style.display = 'none';
-}
-
-document.getElementById('foodModal').addEventListener('click', function(e){
-    if(e.target.id === 'foodModal'){
-        closeModal();
-    }
-});
-
-function addFavorite(id, btn){
-
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const food = allFoods.find(f => f.id === id);
-
-    const index = favorites.findIndex(f => f.id === id);
-
-    // If already in favorites → REMOVE
-    if(index !== -1){
-
-        favorites.splice(index, 1);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-
-        btn.classList.remove('active');
-        btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
-
-    } else {
-
-        // ADD to favorites
-        favorites.push(food);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-
-        btn.classList.add('active');
-        btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-    }
-}
-
-/* SEARCH */
-document.getElementById('searchInput').addEventListener('keyup', function(){
-    const value = this.value.toLowerCase();
-    const filtered = allFoods.filter(food =>
-        food.name.toLowerCase().includes(value)
-    );
-    displayFoods(filtered);
-});
-
-function applyFilters(){
-
-    const category = document.getElementById("filterCategory").value;
-    const region = document.getElementById("filterRegion").value;
-    const vegetarian = document.getElementById("filterVegetarian").checked;
-    const spicy = document.getElementById("filterSpicy").checked;
-
-    let filtered = allFoods.filter(food => {
-
-        // CATEGORY CHECK
-        if(category !== "All Categories"){
-            if(category === 'main'){
-                if(food.category !== 'Main Course') return false;
-            } else if(category === 'Soups'){
-                if(food.category !== 'Soup') return false;
-            } else if(category === 'Swallows'){
-                if(food.category !== 'Swallow') return false;
-            } else if(category === 'Snacks/Street Food'){
-                if(food.category !== 'Snack/Breakfast' && food.category !== 'Side Dish/Snack') return false;
-            } else if(category === 'snack/ dessert'){
-                if(food.category !== 'Snack/Dessert') return false;
-            } else if(category === 'Breakfast/snack'){
-                if(food.category !== 'Breakfast/Snack') return false;
-            } else if(category === 'appetizer/side dish'){
-                if(food.category !== 'Appetizer/Side Dish') return false;
-            } else if(category === 'Side Snack'){
-                if(food.category !== 'Side Dish/Main') return false;
-            }
+            displayFoods(allFoods)
         }
 
-        // REGION CHECK
-        if(region !== "All" && food.region !== region){
-            return false;
+    function displayFoods(foodsToDisplay) {
+        const rowContainer = document.getElementById('row');
+        
+        if (foodsToDisplay.length === 0) {
+            rowContainer.innerHTML = 
+            ' <div class="col-12 text-center"> <p class="text-muted fs-5 mt-4">No foods found matching your filters</p></div>';
+            return;
         }
-
-        // VEGETARIAN CHECK
-        if(vegetarian && !food.isVegetarian){
-            return false;
-        }
-
-        // SPICY CHECK
-        if(spicy && !food.isSpicy){
-            return false;
-        }
-
-        return true;
-    });
-
-    displayFoods(filtered);
-}
-
-function showFavorites(){
-
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-    const favSection = document.getElementById("favoriteSection");
-    const favRow = document.getElementById("favoriteRow");
-
-    favRow.innerHTML = "";
-
-    if(favorites.length === 0){
-        favRow.innerHTML = `
-            <div class="col-12 text-center text-white">
-                <p>No favourites yet. (Goto <a href="index.html">here)</p>
-            </div>
-        `;
-    } else {
-        favorites.forEach(food => {
-            favRow.innerHTML += `
+        
+        rowContainer.innerHTML = '';
+        foodsToDisplay.forEach(food => {
+            const imgIndex = food.id - 1;
+            const localImage = foodPic[imgIndex] ? foodPic[imgIndex] : 'https://via.placeholder.com/300x200?text=' + food.name;
+            
+            rowContainer.innerHTML += `
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="food-card">
-                        <div class="food-img-box">
-                            <img src="${getFoodImage(food)}" alt="${food.name}">
+                    
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="${localImage}" 
+                             class="card-img-top" 
+                             alt="${food.name}" 
+                             style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">${food.name}</h5>
+                            <p class="card-text text-muted small">${food.category || 'N/A'}</p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
+                                ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
+                                ${food.region ? '<span class="badge bg-info">' + food.region + '</span>' : ''}
+                            </div>
                         </div>
-                        <h5 class="mt-3 fw-bold">${food.name}</h5>
-                        <button class="details-btn mt-2" onclick="showDetails(${food.id})">
-                            Show Details
-                        </button>
+                        <div class="row card-footer bg-transparent border-0">
+                            <button class="btn btn-outline-success col-8 w-100" onclick="showFoodDetails(${food.id})">
+                                Details
+                            </button>
+                            <button class="btn btn-outline-danger col-4 w-100" id="favorite" onclick="addFavorite(${food.id})">
+                                <img src="material-symbols-light--favorite-outline.svg" class="img-fluid" style="width: 20px; height: 20px;" alt="Favorite Icon">
+                            </button>
+                                
+                        </div>
                     </div>
                 </div>
             `;
         });
     }
 
-    favSection.classList.remove("d-none");
-    window.scrollTo({ top: favSection.offsetTop - 50, behavior: "smooth" });
-}
+        
+        FoodFetching()
 
-fetchFoods();
+    showFoodDetails = (id) => { 
+        const food = allFoods.find(f => f.id === id);
+        if (!food) return;
+        
+        const imgIndex = food.id - 1;
+        const localImage = foodPic[imgIndex] ? foodPic[imgIndex] : 'https://via.placeholder.com/400?text=' + food.name;
+        
+        const modal = document.getElementById('Modal-Food');
+        const modalContent = modal.querySelector('.modal-content');
 
+        modalContent.innerHTML = `
+            <div class="position-relative p-4 overflow-y-scroll">
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal()"></button>
+                
+                <div class="row h-100">
+                    <div class="col-md-6">
+                        <img src="${localImage}" 
+                             class="img-fluid rounded shadow" 
+                             alt="${food.name}">
+                             <br><br>
+
+                             <h2 class="text-danger fw-bold mb-3">${food.name}</h2>
+
+                             <p class="mb-3">${food.description || 'Delicious traditional dish'}</p>
+                    </div>
+                    <div class="col-md-6 p-3" >
+                        
+                        <p class="text-muted"><strong>Category:</strong> ${food.category || 'N/A'}</p>
+                        <p class="text-muted"><strong>Region:</strong> ${food.region || 'N/A'}</p>
+                        
+                        <div class="d-flex gap-2 mb-3">
+                            ${food.vegetarian ? '<span class="badge bg-success">Vegetarian</span>' : ''}
+                            ${food.spicy ? '<span class="badge bg-danger">Spicy</span>' : ''}
+                        </div>
+                        
+                        
+                        
+                        ${food.ingredients ? `
+                            <h5 class="text-success mt-3">Ingredients:</h5>
+                            <ul class="list-unstyled">
+                                ${food.ingredients.map(ing => '<li>• ' + ing + '</li>').join('')}
+                            </ul>
+                        ` : ''}
+                        
+                        ${food.preparation ? `
+                            <h5 class="text-success mt-3">Preparation:</h5>
+                            <p>${food.preparation}</p>
+
+                        ` : ''}
+
+                        <h5 class="text-success mt-3">Difficuty: <span class="text-danger fw-bold">${food.difficulty || 'N/A'}</span></h5>
+
+                        <h5 class="text-success mt-2">Calories: <span class="text-danger fw-bold">${food.calories ? food.calories : 'N/A'}</span></h5>
+
+                        Food price: <span class="text-danger fw-bold">${food.price ? '$' + food.price : 'N/A'}</span>
+
+
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        modal.style.display = 'flex';
+    }
+
+    closeModal = () => {
+        const modal = document.getElementById('Modal-Food');
+        modal.style.display = 'none';
+    }
+
+    document.getElementById('Modal-Food').addEventListener('click', (e) => {
+        if (e.target.id === 'Modal-Food') {
+            closeModal();
+        }
+    })
+
+        const searchFood = (e) => {
+            const searchInput = e.target.value;
+            const searchResult = allFoods.filter((foodies) => foodies.name.toLowerCase().includes(searchInput.toLowerCase()))
+            console.log(searchResult)
+
+            const rowContainer = document.getElementById('row');
+            displayFoods(searchResult);
+        }
+    const fliterCategories = () => {
+            const categoryFilter = document.getElementById('Category').value;
+
+            if (categoryFilter === 'All Categories') {
+                displayFoods(allFoods);
+            } else if(categoryFilter === 'main') {
+                const riceDishes = allFoods.filter(food => food.category === 'Main Course');
+                displayFoods(riceDishes);
+            } else if(categoryFilter === 'Soups') {
+                const soups = allFoods.filter(food => food.category === 'Soup');
+                displayFoods(soups);
+            } else if(categoryFilter === 'Swallows') {
+                const swallows = allFoods.filter(food => food.category === 'Swallow');
+                displayFoods(swallows);
+            } else if(categoryFilter === 'Snacks/Street Food') {
+                const snacks = allFoods.filter(food => food.category === 'Snack/Breakfast' || food.category === 'Side Dish/Snack');
+                displayFoods(snacks);
+            }   else if(categoryFilter === 'snack/ dessert') {
+                const snackDessert = allFoods.filter(food => food.category === 'Snack/Dessert');
+                displayFoods(snackDessert);
+            } else if(categoryFilter === 'Breakfast/snack') {
+                const breakfastSnack = allFoods.filter(food => food.category === 'Breakfast/Snack');
+                displayFoods(breakfastSnack);
+            } else if(categoryFilter === 'appetizer/side dish') {
+                const appetizerSide = allFoods.filter(food => food.category === 'Appetizer/Side Dish');
+                displayFoods(appetizerSide);
+            } else if(categoryFilter === 'Side Snack'){
+                const sideSnack = allFoods.filter(food => food.category === "Side Dish/Main")
+            }
+        }
+
+        const fliterRegion = () => {
+
+            const regionFilter = document.getElementById('Region').value;
+
+            if(regionFilter === 'All regions') {
+                displayFoods(allFoods);
+            } else if (regionFilter === 'South-South Nigeria') {
+                const southSouth = allFoods.filter(food => food.region === 'South-South Nigeria');
+                displayFoods(southSouth);
+            } else if (regionFilter === 'South-West Nigeria') {
+                const southWest = allFoods.filter(food => food.region === 'South-West Nigeria');
+                displayFoods(southWest);
+            } else if (regionFilter === 'Northern Nigeria') {
+                const north = allFoods.filter(food => food.region === 'Northern Nigeria');
+                displayFoods(north);
+            } else if (regionFilter === 'South-East Nigeria') {
+                const southEast = allFoods.filter(food => food.region === 'South-East Nigeria');
+                displayFoods(southEast);
+            }
+
+
+        }
+            
+    
+
+    const filterVegetarian = () => {
+                const vegetarianCheckbox = document.getElementById('vegetarian').checked;
+                if(vegetarianCheckbox) {
+                    const vegetarianFoods = allFoods.filter(food => food.isVegetarian === true);
+                    displayFoods(vegetarianFoods);
+                } else {
+                    displayFoods(allFoods);
+                }
+            }
+
+            const filterSpicy = () => {
+                const spicyCheckbox = document.getElementById('spicy').checked;
+                if(spicyCheckbox) {
+                    const spicyFoods = allFoods.filter(food => food.isSpicy === true);
+                    displayFoods(spicyFoods);
+                } else {
+                    displayFoods(allFoods);
+                }
+            }
+            
+    addFavorite = (id) => {
+        const food = allFoods.find(f => f.id === id);
+        if (!food) return;
+
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        if (favorites.some(fav => fav.id === food.id)) {
+            alert('This food is already in your favorites!');
+            return;
+        }
+
+        favorites.push(food);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        alert(`${food.name} has been added to your favorites!`);
+    }
+
+    const viewFavourite = () => {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (favorites.length === 0) {
+            alert('You have no favorite foods yet!');
+            return;
+        }
+        displayFoods(favorites);
+    }
 </script>
-
-</body>
 </html>
