@@ -1,288 +1,297 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="pajamas--food.svg">
-<title>Faith Delight Dishes</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="pajamas--food.svg" />
+    <title>Faith Delight Dishes</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-<style>
+    <style>
+        body {
+            background: #2b2626;
+            font-family: "Segoe UI", sans-serif;
+        }
 
-body{
-    background:#2b2626;
-    font-family:'Segoe UI',sans-serif;
-}
+        /* NAV */
+        .navbar {
+            background: transparent !important;
+        }
 
-/* NAV */
-.navbar{
-    background:transparent !important;
-}
-.navbar-brand{
-    color:white !important;
-    font-weight:700;
-    font-size:1.3rem;
-}
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
 
-.section-title{
-    color:white;
-    font-weight:700;
-    margin-bottom:30px;
-}
-.filters-box{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-.food-card{
-    background:white;
-    border-radius:22px;
-    padding:15px;
-    text-align:center;
-    transition:0.3s ease;
-    height:100%;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-}
-.food-card:hover{
-    transform:translateY(-8px);
-}
-.food-img-box{
-    background:#f3f3f3;
-    border-radius:18px;
-    padding:10px;
-}
-.food-img-box img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:15px;
-}
-.details-btn{
-    background:#8B5E3C;
-    color:white;
-    border:none;
-    padding:6px 15px;
-    border-radius:25px;
-    font-size:0.85rem;
-}
-.details-btn:hover{
-    opacity:0.9;
-}
+        .section-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
 
-.heart-btn{
-    background:none;
-    border:none;
-    font-size:1.2rem;
-    color:#999;
-}
-.heart-btn.active{
-    color:red;
-}
-.custom-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:1000;
-}
+        .filters-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
 
-.modal-content-box{
-    background:white;
-    border-radius:20px;
-    max-width:800px;
-    width:100%;
-    padding:30px;
-    max-height:90vh;
-    overflow-y:auto;
-    animation:fadeIn 0.3s ease;
-}
+        .food-card {
+            background: white;
+            border-radius: 22px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
-}
+        .food-card:hover {
+            transform: translateY(-8px);
+        }
 
-.section-wrapper{
-    padding-top:50px;
-    padding-bottom:50px;
-}
+        .food-img-box {
+            background: #f3f3f3;
+            border-radius: 18px;
+            padding: 10px;
+        }
 
-.carousel-item {
-    height: 450px;
-    position: relative;
-}
+        .food-img-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
 
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .details-btn {
+            background: #8b5e3c;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+        }
 
-.carousel-item::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.7),
-        rgba(0,0,0,0.4)
-    );
-    z-index: 1;
-}
+        .details-btn:hover {
+            opacity: 0.9;
+        }
 
-.carousel-caption {
-    z-index: 2;
-    bottom: 20%;
-    text-align: left;
-}
+        .heart-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #999;
+        }
 
-.carousel-item {
-    height: 400px;
-    position: relative;
-}
+        .heart-btn.active {
+            color: red;
+        }
 
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .custom-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
 
-.carousel-caption h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-}
+        .modal-content-box {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            padding: 30px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
 
-.carousel-caption p {
-    max-width: 500px;
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
 
-.carousel-item img {
-    transition: transform 6s ease;
-}
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-.carousel-item.active img {
-    transform: scale(1.05);
-}
+        .section-wrapper {
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
 
-</style>
+        .carousel-item {
+            height: 450px;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                    rgba(0, 0, 0, 0.7),
+                    rgba(0, 0, 0, 0.4));
+            z-index: 1;
+        }
+
+        .carousel-caption {
+            z-index: 2;
+            bottom: 20%;
+            text-align: left;
+        }
+
+        .carousel-item {
+            height: 400px;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .carousel-caption p {
+            max-width: 500px;
+        }
+
+        .carousel-item img {
+            transition: transform 6s ease;
+        }
+
+        .carousel-item.active img {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
+
 <body>
+    <nav class="navbar container py-2 px-2">
+        <span class="navbar-brand">Faith Delight Dishes</span>
 
-<nav class="navbar container py-2 px-2">
-    <span class="navbar-brand">Faith Delight Dishes</span>
+        <button class="btn btn-outline-light" onclick="showFavorites()">
+            <i class="fa-solid fa-heart"></i> Favourites
+        </button>
+    </nav>
 
-    <button class="btn btn-outline-light" onclick="showFavorites()">
-    <i class="fa-solid fa-heart"></i> Favourites
-    </button>
-</nav>
-
-
-
-
-<div class="container section-wrapper">
-
-    <div class="filters-box mb-5">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <input type="search" class="form-control" placeholder="Search dishes..." id="searchInput">
+    <div class="container section-wrapper">
+        <div class="filters-box mb-5">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="search" class="form-control" placeholder="Search dishes..." id="searchInput" />
+                </div>
             </div>
         </div>
+
+        <div class="filters-box mb-5">
+            <div class="row g-3">
+                <!-- categories -->
+                <div class="col-md-3">
+                    <select class="form-select" id="filterCategory">
+                        <option value="All Categories">All Categories</option>
+                        <option value="main">Main Dishes</option>
+                        <option value="Soups">Soups</option>
+                        <option value="Swallows">Swallows</option>
+                        <option value="Snacks/Street Food">Snacks/Street Food</option>
+                        <option value="snack/ dessert">snack/ dessert</option>
+                        <option value="Breakfast/snack">Breakfast/snack</option>
+                        <option value="appetizer/side dish">Appetizer/side dish</option>
+                        <option value="Side Snack">Side Dish/Main</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <select class="form-select" id="filterRegion">
+                        <option value="All">All Regions</option>
+                        <option value="South-West Nigeria">South-West Nigeria</option>
+                        <option value="South-East Nigeria">South-East Nigeria</option>
+                        <option value="Northern Nigeria">Northern Nigeria</option>
+                        <option value="South-South Nigeria">South-South Nigeria</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-center">
+                    <input type="checkbox" id="filterVegetarian" class="me-2" />
+                    <label for="filterVegetarian">Vegetarian</label>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-center">
+                    <input type="checkbox" id="filterSpicy" class="me-2" />
+                    <label for="filterSpicy">Spicy</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="foodCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselInner"></div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <h3 class="section-title">Popular Dishes</h3>
+
+        <div class="row g-4" id="row"></div>
     </div>
 
-    
-<div class="filters-box mb-5">
-    <div class="row g-3">
-
-        <!-- categories -->
-        <div class="col-md-3">
-            <select class="form-select" id="filterCategory">
-                <option value="All Categories">All Categories</option>
-                <option value="main">Main Dishes</option>
-                <option value="Soups">Soups</option>
-                <option value="Swallows">Swallows</option>
-                <option value="Snacks/Street Food">Snacks/Street Food</option>
-                <option value="snack/ dessert">snack/ dessert</option>
-                <option value="Breakfast/snack">Breakfast/snack</option>
-                <option value="appetizer/side dish">Appetizer/side dish</option>
-                <option value="Side Snack">Side Dish/Main</option>
-            </select>
-        </div>
-
-        <div class="col-md-3">
-            <select class="form-select" id="filterRegion">
-                <option value="All">All Regions</option>
-                <option value="South-West Nigeria">South-West Nigeria</option>
-                <option value="South-East Nigeria">South-East Nigeria</option>
-                <option value="Northern Nigeria">Northern Nigeria</option>
-                <option value="South-South Nigeria">South-South Nigeria</option>
-            </select>
-        </div>
-
-        <div class="col-md-2 d-flex align-items-center">
-            <input type="checkbox" id="filterVegetarian" class="me-2">
-            <label for="filterVegetarian">Vegetarian</label>
-        </div>
-
-        <div class="col-md-2 d-flex align-items-center">
-            <input type="checkbox" id="filterSpicy" class="me-2">
-            <label for="filterSpicy">Spicy</label>
-        </div>
-
-    </div>
-</div>
-
-<div id="foodCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-
-    <div class="carousel-inner" id="carouselInner">
+    <div class="container section-wrapper d-none" id="favoriteSection">
+        <h3 class="section-title">Your Favourite Dishes</h3>
+        <div class="row g-4" id="favoriteRow"></div>
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
+    <div class="custom-modal" id="foodModal">
+        <div class="modal-content-box" id="modalContent"></div>
+    </div>
 
-    <button class="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-</div>
+    <script>
+        document
+            .getElementById("filterCategory")
+            .addEventListener("change", applyFilters);
+        document
+            .getElementById("filterRegion")
+            .addEventListener("change", applyFilters);
+        document
+            .getElementById("filterVegetarian")
+            .addEventListener("change", applyFilters);
+        document
+            .getElementById("filterSpicy")
+            .addEventListener("change", applyFilters);
 
-    <h3 class="section-title">Popular Dishes</h3>
+        const Apiurl = "https://mongotest2026.vercel.app/api/foods";
+        let allFoods = [];
 
-    <div class="row g-4" id="row"></div>
-
-</div>
-
-<div class="container section-wrapper d-none" id="favoriteSection">
-    <h3 class="section-title">Your Favourite Dishes</h3>
-    <div class="row g-4" id="favoriteRow"></div>
-</div>
-
-<div class="custom-modal" id="foodModal">
-    <div class="modal-content-box" id="modalContent"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-
-document.getElementById("filterCategory").addEventListener("change", applyFilters);
-document.getElementById("filterRegion").addEventListener("change", applyFilters);
-document.getElementById("filterVegetarian").addEventListener("change", applyFilters);
-document.getElementById("filterSpicy").addEventListener("change", applyFilters);
-
-const Apiurl = "https://mongotest2026.vercel.app/api/foods";
-let allFoods = [];
-
-async function fetchFoods(){
-    const row = document.getElementById('row');
-    row.innerHTML = 
-    `
+        async function fetchFoods() {
+            const row = document.getElementById("row");
+            row.innerHTML = `
     <div class="col-12 text-center text-white mt-5">
         <div class="spinner-border text-light" role="status"> 
             __________<span class="text-danger ">||||</span>
@@ -291,17 +300,17 @@ async function fetchFoods(){
     </div>
     `;
 
-    try {
-        const res = await fetch(Apiurl);
-        if (!res.ok) throw new Error("API Response was not ok");
-        
-        const data = await res.json();
-        allFoods = data.data;
-        displayFoods(allFoods);
-        loadHeroCarousel();
-    } catch (error) {
-        console.error("Error fetching foods:", error);
-        row.innerHTML = `
+            try {
+                const res = await fetch(Apiurl);
+                if (!res.ok) throw new Error("API Response was not ok");
+
+                const data = await res.json();
+                allFoods = data.data;
+                displayFoods(allFoods);
+                loadHeroCarousel();
+            } catch (error) {
+                console.error("Error fetching foods:", error);
+                row.innerHTML = `
             <div class="col-12 text-center text-white mt-5">
                 <i class="fa-solid fa-triangle-exclamation fa-3x mb-3 text-warning"></i>
                 <h3>Oops! Could not load foods.</h3>
@@ -309,59 +318,57 @@ async function fetchFoods(){
                 <button class="btn btn-outline-light mt-2" onclick="fetchFoods()">Try Again</button>
             </div>
         `;
-    }
-}
+            }
+        }
 
-const foodPic = [
- 'jollof.jpg',
- 'egusi.jpg',
- 'pounded yam.jpg',
- 'suya.jpg',
- 'akara.jpg',
- 'moi moi.jpg',
- 'efo riro.jpg',
- 'fried rice.jpg',
- 'pepper soup.jpg',
- 'amala.jpg',
- 'boli.jpg',
- 'ofada rice.jpg',
- 'Edikang Ikong.jpg',
- 'Tuwo Shinkafa.jpg',
- 'Puff Puff.jpg',
- 'Oha Soup.jpg',
- 'Chin Chin.jpg',
- 'Afang Soup.jpg',
- 'Nkwobi.jpg',
- 'Ewa Agoyin.jpg',
- 'Gizdodo.jpg',
- 'Okro.jpg',
- 'Banga.jpg',
- 'Masa.jpg',
- 'abacha (african salad).jpg',
- 'Ofe Nsala (White Soup).jpg',
- 'Dodo (Fried Plantain).jpg',
- 'miyan kuka.jpg',
- 'Asaro.jpg',
- 'Yamarita.jpg'
-];
+        const foodPic = [
+            "jollof.jpg",
+            "egusi.jpg",
+            "pounded yam.jpg",
+            "suya.jpg",
+            "akara.jpg",
+            "moi moi.jpg",
+            "efo riro.jpg",
+            "fried rice.jpg",
+            "pepper soup.jpg",
+            "amala.jpg",
+            "boli.jpg",
+            "ofada rice.jpg",
+            "Edikang Ikong.jpg",
+            "Tuwo Shinkafa.jpg",
+            "Puff Puff.jpg",
+            "Oha Soup.jpg",
+            "Chin Chin.jpg",
+            "Afang Soup.jpg",
+            "Nkwobi.jpg",
+            "Ewa Agoyin.jpg",
+            "Gizdodo.jpg",
+            "Okro.jpg",
+            "Banga.jpg",
+            "Masa.jpg",
+            "abacha (african salad).jpg",
+            "Ofe Nsala (White Soup).jpg",
+            "Dodo (Fried Plantain).jpg",
+            "miyan kuka.jpg",
+            "Asaro.jpg",
+            "Yamarita.jpg",
+        ];
 
-function getFoodImage(food){
+        function getFoodImage(food) {
+            const index = food.id - 1;
+            if (foodPic[index]) {
+                return foodPic[index];
+            }
 
-    const index = food.id - 1;
-    if(foodPic[index]){
-        return foodPic[index];
-    }
+            return "https://via.placeholder.com/400x300?text=" + food.name;
+        }
 
-    return "https://via.placeholder.com/400x300?text=" + food.name;
-}
+        function displayFoods(foods) {
+            const row = document.getElementById("row");
+            row.innerHTML = "";
 
-function displayFoods(foods){
-    const row = document.getElementById('row');
-    row.innerHTML = '';
-
-    foods.forEach(food => {
-
-        row.innerHTML += `
+            foods.forEach((food) => {
+                row.innerHTML += `
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="food-card">
 
@@ -386,23 +393,22 @@ function displayFoods(foods){
             </div>
         </div>
         `;
-    });
-}
+            });
+        }
 
-function loadHeroCarousel(){
-
-    const carouselContainer = document.getElementById("carouselInner");
-    const shuffled = [...allFoods].sort(() => 0.5 - Math.random());
-    const randomFoods = shuffled.slice(0,3);
-    carouselContainer.innerHTML = "";
-    randomFoods.forEach((food, index) => {
-        carouselContainer.innerHTML += `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+        function loadHeroCarousel() {
+            const carouselContainer = document.getElementById("carouselInner");
+            const shuffled = [...allFoods].sort(() => 0.5 - Math.random());
+            const randomFoods = shuffled.slice(0, 3);
+            carouselContainer.innerHTML = "";
+            randomFoods.forEach((food, index) => {
+                carouselContainer.innerHTML += `
+        <div class="carousel-item ${index === 0 ? "active" : ""}">
             <img src="${getFoodImage(food)}" alt="${food.name}">
 
             <div class="carousel-caption text-start">
                 <h2 class="fw-bold">${food.name}</h2>
-                <p>${food.description || 'Delicious traditional dish'}</p>
+                <p>${food.description || "Delicious traditional dish"}</p>
                 <button class="btn btn-light btn-sm mt-2" 
                         onclick="showDetails(${food.id})">
                         View Details
@@ -410,15 +416,15 @@ function loadHeroCarousel(){
             </div>
         </div>
         `;
-    });
-}
+            });
+        }
 
-function showDetails(id){
-    const food = allFoods.find(f => f.id === id)
-    const modal = document.getElementById('foodModal')
-    const content = document.getElementById('modalContent')
+        function showDetails(id) {
+            const food = allFoods.find((f) => f.id === id);
+            const modal = document.getElementById("foodModal");
+            const content = document.getElementById("modalContent");
 
-    content.innerHTML = `
+            content.innerHTML = `
         <div class="text-end">
             <button class="btn-close" onclick="closeModal()"></button>
         </div>
@@ -432,146 +438,153 @@ function showDetails(id){
                 <h2 class="fw-bold mb-3">${food.name}</h2>
 
                 <p><strong>ID:</strong> ${food.id}</p>
-                <p><strong>Category:</strong> ${food.category || 'N/A'}</p>
-                <p><strong>Region:</strong> ${food.region || 'N/A'}</p>
-                <p><strong>Price:</strong> ₦${food.price || 'N/A'}</p>
-                <p><strong>Difficulty:</strong> ${food.difficulty || 'N/A'}</p>
-                <p><strong>Calories:</strong> ${food.calories || 'N/A'}</p>
-                <p><strong>Vegetarian:</strong> ${food.isVegetarian ? 'Yes' : 'No'}</p>
-                <p><strong>Spicy:</strong> ${food.isSpicy ? 'Yes' : 'No'}</p>
+                <p><strong>Category:</strong> ${food.category || "N/A"}</p>
+                <p><strong>Region:</strong> ${food.region || "N/A"}</p>
+                <p><strong>Price:</strong> ₦${food.price || "N/A"}</p>
+                <p><strong>Difficulty:</strong> ${food.difficulty || "N/A"}</p>
+                <p><strong>Calories:</strong> ${food.calories || "N/A"}</p>
+                <p><strong>Vegetarian:</strong> ${food.isVegetarian ? "Yes" : "No"}</p>
+                <p><strong>Spicy:</strong> ${food.isSpicy ? "Yes" : "No"}</p>
 
                 <hr>
 
                 <p><strong>Description:</strong></p>
-                <p>${food.description || 'No description available.'}</p>
+                <p>${food.description || "No description available."}</p>
 
-                ${food.ingredients ? `
+                ${food.ingredients
+                    ? `
                 <p><strong>Ingredients:</strong></p>
                 <ul>
-                    ${food.ingredients.map(i => `<li>${i}</li>`).join('')}
-                </ul>` : ''}
+                    ${food.ingredients.map((i) => `<li>${i}</li>`).join("")}
+                </ul>`
+                    : ""
+                }
 
-                ${food.preparation ? `
+                ${food.preparation
+                    ? `
                 <p><strong>Preparation:</strong></p>
-                <p>${food.preparation}</p>` : ''}
+                <p>${food.preparation}</p>`
+                    : ""
+                }
 
             </div>
         </div>
     `;
 
-    modal.style.display = 'flex';
-}
+            modal.style.display = "flex";
+        }
 
-function closeModal(){
-    document.getElementById('foodModal').style.display = 'none';
-}
+        function closeModal() {
+            document.getElementById("foodModal").style.display = "none";
+        }
 
-document.getElementById('foodModal').addEventListener('click', function(e){
-    if(e.target.id === 'foodModal'){
-        closeModal();
-    }
-});
+        document
+            .getElementById("foodModal")
+            .addEventListener("click", function (e) {
+                if (e.target.id === "foodModal") {
+                    closeModal();
+                }
+            });
 
-function addFavorite(id, btn){
+        function addFavorite(id, btn) {
+            let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const food = allFoods.find((f) => f.id === id);
 
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const food = allFoods.find(f => f.id === id);
+            const index = favorites.findIndex((f) => f.id === id);
 
-    const index = favorites.findIndex(f => f.id === id);
+            if (index !== -1) {
+                favorites.splice(index, 1);
+                localStorage.setItem("favorites", JSON.stringify(favorites));
 
-    if(index !== -1){
+                btn.classList.remove("active");
+                btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+            } else {
+                favorites.push(food);
+                localStorage.setItem("favorites", JSON.stringify(favorites));
 
-        favorites.splice(index, 1);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-
-        btn.classList.remove('active');
-        btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
-
-    } else {
-
-        favorites.push(food);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-
-        btn.classList.add('active');
-        btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-    }
-}
-
-// search
-document.getElementById('searchInput').addEventListener('keyup', function(){
-    const value = this.value.toLowerCase();
-    const filtered = allFoods.filter(food =>
-        food.name.toLowerCase().includes(value)
-    );
-    displayFoods(filtered);
-});
-
-function applyFilters(){
-
-    const category = document.getElementById("filterCategory").value;
-    const region = document.getElementById("filterRegion").value;
-    const vegetarian = document.getElementById("filterVegetarian").checked;
-    const spicy = document.getElementById("filterSpicy").checked;
-
-    let filtered = allFoods.filter(food => {
-
-// CATEGORY CHECK
-        if(category !== "All Categories"){
-            if(category === 'main'){
-                if(food.category !== 'Main Course') return false
-            } else if(category === 'Soups'){
-                if(food.category !== 'Soup') return false
-            } else if(category === 'Swallows'){
-                if(food.category !== 'Swallow') return false
-            } else if(category === 'Snacks/Street Food'){
-                if(food.category !== 'Snack/Breakfast' && food.category !== 'Side Dish/Snack') return false
-            } else if(category === 'snack/ dessert'){
-                if(food.category !== 'Snack/Dessert') return false
-            } else if(category === 'Breakfast/snack'){
-                if(food.category !== 'Breakfast/Snack') return false
-            } else if(category === 'appetizer/side dish'){
-                if(food.category !== 'Appetizer/Side Dish') return false
-            } else if(category === 'Side Snack'){
-                if(food.category !== 'Side Dish/Main') return false
+                btn.classList.add("active");
+                btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
             }
         }
 
-    if(region !== "All" && food.region !== region){
-            return false
+        // search
+        document
+            .getElementById("searchInput")
+            .addEventListener("keyup", function () {
+                const value = this.value.toLowerCase();
+                const filtered = allFoods.filter((food) =>
+                    food.name.toLowerCase().includes(value),
+                );
+                displayFoods(filtered);
+            });
+
+        function applyFilters() {
+            const category = document.getElementById("filterCategory").value;
+            const region = document.getElementById("filterRegion").value;
+            const vegetarian = document.getElementById("filterVegetarian").checked;
+            const spicy = document.getElementById("filterSpicy").checked;
+
+            let filtered = allFoods.filter((food) => {
+                // CATEGORY CHECK
+                if (category !== "All Categories") {
+                    if (category === "main") {
+                        if (food.category !== "Main Course") return false;
+                    } else if (category === "Soups") {
+                        if (food.category !== "Soup") return false;
+                    } else if (category === "Swallows") {
+                        if (food.category !== "Swallow") return false;
+                    } else if (category === "Snacks/Street Food") {
+                        if (
+                            food.category !== "Snack/Breakfast" &&
+                            food.category !== "Side Dish/Snack"
+                        )
+                            return false;
+                    } else if (category === "snack/ dessert") {
+                        if (food.category !== "Snack/Dessert") return false;
+                    } else if (category === "Breakfast/snack") {
+                        if (food.category !== "Breakfast/Snack") return false;
+                    } else if (category === "appetizer/side dish") {
+                        if (food.category !== "Appetizer/Side Dish") return false;
+                    } else if (category === "Side Snack") {
+                        if (food.category !== "Side Dish/Main") return false;
+                    }
+                }
+
+                if (region !== "All" && food.region !== region) {
+                    return false;
+                }
+
+                if (vegetarian && !food.isVegetarian) {
+                    return false;
+                }
+
+                if (spicy && !food.isSpicy) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            displayFoods(filtered);
         }
 
-    if(vegetarian && !food.isVegetarian){
-            return false
-        }
+        function showFavorites() {
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    if(spicy && !food.isSpicy){
-            return false
-        }
+            const favSection = document.getElementById("favoriteSection");
+            const favRow = document.getElementById("favoriteRow");
 
-        return true;
-    });
+            favRow.innerHTML = "";
 
-    displayFoods(filtered);
-}
-
-function showFavorites(){
-
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-    const favSection = document.getElementById("favoriteSection");
-    const favRow = document.getElementById("favoriteRow");
-
-    favRow.innerHTML = "";
-
-    if(favorites.length === 0){
-        favRow.innerHTML = `
+            if (favorites.length === 0) {
+                favRow.innerHTML = `
             <div class="col-12 text-center text-white">
                 <p>No favourites yet. (Goto <a href="index.html">here)</p>
             </div>
         `;
-    } else {
-        favorites.forEach(food => {
-            favRow.innerHTML += `
+            } else {
+                favorites.forEach((food) => {
+                    favRow.innerHTML += `
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="food-card">
                         <div class="food-img-box">
@@ -584,16 +597,15 @@ function showFavorites(){
                     </div>
                 </div>
             `;
-        });
-    }
+                });
+            }
 
-    favSection.classList.remove("d-none");
-    window.scrollTo({ top: favSection.offsetTop - 50, behavior: "smooth" });
-}
+            favSection.classList.remove("d-none");
+            window.scrollTo({ top: favSection.offsetTop - 50, behavior: "smooth" });
+        }
 
-fetchFoods();
-
-</script>
-
+        fetchFoods();
+    </script>
 </body>
+
 </html>
