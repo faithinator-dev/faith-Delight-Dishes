@@ -290,8 +290,15 @@ let allFoods = [];
 
 async function fetchFoods(){
     const row = document.getElementById('row');
-    // 1. Show Loading Spinner
-    row.innerHTML = '<div class="col-12 text-center text-white mt-5"><div class="spinner-border text-light" role="status"></div><p class="mt-2">Loading delicious foods...</p></div>';
+    row.innerHTML = 
+    `
+    <div class="col-12 text-center text-white mt-5">
+        <div class="spinner-border text-light" role="status"> 
+            __________<span class="text-danger ">||||</span>
+        </div><br>
+        <p class="mt-2">Loading delicious foods...</p>
+    </div>
+    `;
 
     try {
         const res = await fetch(Apiurl);
@@ -303,7 +310,6 @@ async function fetchFoods(){
         loadHeroCarousel();
     } catch (error) {
         console.error("Error fetching foods:", error);
-        // 2. Show Error Message & Retry Button
         row.innerHTML = `
             <div class="col-12 text-center text-white mt-5">
                 <i class="fa-solid fa-triangle-exclamation fa-3x mb-3 text-warning"></i>
@@ -350,15 +356,11 @@ const foodPic = [
 
 function getFoodImage(food){
 
-    // use food.id to match image index
     const index = food.id - 1;
-
-    // if image exists in array
     if(foodPic[index]){
         return foodPic[index];
     }
 
-    // fallback image
     return "https://via.placeholder.com/400x300?text=" + food.name;
 }
 
@@ -399,17 +401,10 @@ function displayFoods(foods){
 function loadHeroCarousel(){
 
     const carouselContainer = document.getElementById("carouselInner");
-
-    // Shuffle foods randomly
     const shuffled = [...allFoods].sort(() => 0.5 - Math.random());
-
-    // Pick first 3 random foods
     const randomFoods = shuffled.slice(0,3);
-
     carouselContainer.innerHTML = "";
-
     randomFoods.forEach((food, index) => {
-
         carouselContainer.innerHTML += `
         <div class="carousel-item ${index === 0 ? 'active' : ''}">
             <img src="${getFoodImage(food)}" alt="${food.name}">
@@ -425,13 +420,12 @@ function loadHeroCarousel(){
         </div>
         `;
     });
-
 }
 
 function showDetails(id){
-    const food = allFoods.find(f => f.id === id);
-    const modal = document.getElementById('foodModal');
-    const content = document.getElementById('modalContent');
+    const food = allFoods.find(f => f.id === id)
+    const modal = document.getElementById('foodModal')
+    const content = document.getElementById('modalContent')
 
     content.innerHTML = `
         <div class="text-end">
@@ -452,8 +446,6 @@ function showDetails(id){
                 <p><strong>Price:</strong> ₦${food.price || 'N/A'}</p>
                 <p><strong>Difficulty:</strong> ${food.difficulty || 'N/A'}</p>
                 <p><strong>Calories:</strong> ${food.calories || 'N/A'}</p>
-                <p><strong>Vegetarian:</strong> ${food.vegetarian ? 'Yes' : 'No'}</p>
-                <p><strong>Spicy:</strong> ${food.spicy ? 'Yes' : 'No'}</p>
                 <p><strong>Vegetarian:</strong> ${food.isVegetarian ? 'Yes' : 'No'}</p>
                 <p><strong>Spicy:</strong> ${food.isSpicy ? 'Yes' : 'No'}</p>
 
@@ -496,7 +488,6 @@ function addFavorite(id, btn){
 
     const index = favorites.findIndex(f => f.id === id);
 
-    // If already in favorites → REMOVE
     if(index !== -1){
 
         favorites.splice(index, 1);
@@ -507,7 +498,6 @@ function addFavorite(id, btn){
 
     } else {
 
-        // ADD to favorites
         favorites.push(food);
         localStorage.setItem('favorites', JSON.stringify(favorites));
 
@@ -516,7 +506,7 @@ function addFavorite(id, btn){
     }
 }
 
-/* SEARCH */
+// search
 document.getElementById('searchInput').addEventListener('keyup', function(){
     const value = this.value.toLowerCase();
     const filtered = allFoods.filter(food =>
@@ -534,40 +524,37 @@ function applyFilters(){
 
     let filtered = allFoods.filter(food => {
 
-        // CATEGORY CHECK
+// CATEGORY CHECK
         if(category !== "All Categories"){
             if(category === 'main'){
-                if(food.category !== 'Main Course') return false;
+                if(food.category !== 'Main Course') return false
             } else if(category === 'Soups'){
-                if(food.category !== 'Soup') return false;
+                if(food.category !== 'Soup') return false
             } else if(category === 'Swallows'){
-                if(food.category !== 'Swallow') return false;
+                if(food.category !== 'Swallow') return false
             } else if(category === 'Snacks/Street Food'){
-                if(food.category !== 'Snack/Breakfast' && food.category !== 'Side Dish/Snack') return false;
+                if(food.category !== 'Snack/Breakfast' && food.category !== 'Side Dish/Snack') return false
             } else if(category === 'snack/ dessert'){
-                if(food.category !== 'Snack/Dessert') return false;
+                if(food.category !== 'Snack/Dessert') return false
             } else if(category === 'Breakfast/snack'){
-                if(food.category !== 'Breakfast/Snack') return false;
+                if(food.category !== 'Breakfast/Snack') return false
             } else if(category === 'appetizer/side dish'){
-                if(food.category !== 'Appetizer/Side Dish') return false;
+                if(food.category !== 'Appetizer/Side Dish') return false
             } else if(category === 'Side Snack'){
-                if(food.category !== 'Side Dish/Main') return false;
+                if(food.category !== 'Side Dish/Main') return false
             }
         }
 
-        // REGION CHECK
-        if(region !== "All" && food.region !== region){
-            return false;
+    if(region !== "All" && food.region !== region){
+            return false
         }
 
-        // VEGETARIAN CHECK
-        if(vegetarian && !food.isVegetarian){
-            return false;
+    if(vegetarian && !food.isVegetarian){
+            return false
         }
 
-        // SPICY CHECK
-        if(spicy && !food.isSpicy){
-            return false;
+    if(spicy && !food.isSpicy){
+            return false
         }
 
         return true;

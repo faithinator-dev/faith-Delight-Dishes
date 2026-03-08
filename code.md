@@ -1,5 +1,5 @@
 =========================================================
-LOGIC EXPLANATION FOR INDEX2.HTML (MODERN FOOD UI)
+LOGIC EXPLANATION FOR the WEBSITE
 =========================================================
 
 1. INITIALIZATION & DATA FETCHING
@@ -107,9 +107,3 @@ This allows data to persist even if the user refreshes the page.
   - Cards hover effect (translateY).
   - Modal fade-in animation (@keyframes fadeIn).
   - Carousel zoom effect on the active image.
-```
-
-<!--
-[PROMPT_SUGGESTION]How can I add a "Load More" button to show only 8 items at first and then load the rest when clicked? [/PROMPT_SUGGESTION]
-[PROMPT_SUGGESTION]Can you help me add a rating system (1-5 stars) to the food cards that saves to local storage? [/PROMPT_SUGGESTION]
-->
